@@ -6,6 +6,7 @@
 
 
 <form action="{{route('admin.event.update', $events->id)}}" method="post" enctype="multipart/form-data">                             
+@method('put')
 @csrf
   <div class="form-group">
     <label for="">Event Name</label>

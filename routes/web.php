@@ -13,6 +13,7 @@ use App\Http\Controllers\Frontend\WebAboutUsController;
 use App\Http\Controllers\Frontend\WebContactUsController;
 use App\Http\Controllers\Frontend\WebProfileController;
 use App\Http\Controllers\Frontend\WebCustomerController;
+use App\Http\Controllers\Frontend\WebSingleViewController;
 use App\Http\Controllers\Frontend\WebEventController;
 
  // //Backend
@@ -39,7 +40,7 @@ Route::group(['prefix'=>'admin'],function()           //prefix
     
            Route::get('/event/view/{event_id}',[EventController::class,'eventView'])->name('admin.event.view');
            Route::get('/event/edit/{event_id}',[EventController::class,'eventEdit'])->name('admin.event.edit');
-           Route::post('/event/update/{event_id}',[EventController::class,'eventUpdate'])->name('admin.event.update');
+           Route::put('/event/update/{event_id}',[EventController::class,'eventUpdate'])->name('admin.event.update');
            Route::get('/event/delete/{event_id}',[EventController::class,'eventDelete'])->name('admin.event.delete');
 
      //Services->
@@ -49,6 +50,11 @@ Route::group(['prefix'=>'admin'],function()           //prefix
            Route::get('/create/service',[ServiceController::class,'createService'])->name('admin.create.service');
            Route::post('/service/store',[ServiceController::class,'serviceStore'])->name('admin.service.store');
     
+           Route::get('/service/view/{service_id}',[ServiceController::class,'serviceView'])->name('admin.service.view');
+           Route::get('/service/edit/{service_id}',[ServiceController::class,'serviceEdit'])->name('admin.service.edit');
+           Route::put('/service/update/{service_id}',[ServiceController::class,'serviceUpdate'])->name('admin.service.update');
+           Route::get('/service/delete/{service_id}',[ServiceController::class,'serviceDelete'])->name('admin.service.delete');
+
      
     //Bookings-> 
 
@@ -95,4 +101,5 @@ Route::group(['prefix'=>'admin'],function()           //prefix
          //Profile
            Route::get('/view/profile/{id}',[WebProfileController::class,'viewProfile'])->name('view.profile');
 
-
+         //Single-view
+          Route::get('/single-view',[WebSingleViewController::class,'singleView'])->name('single.view');

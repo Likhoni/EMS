@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Backend;
 use App\Http\Controllers\Controller;
 use App\Models\Backend\Event;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Validator;
 
 class EventController extends Controller
@@ -84,23 +85,27 @@ class EventController extends Controller
 
    public function  eventUpdate(Request $request ,$event_id)
    {
+    $events=Event::find($event_id);
     
-    // $img = $request->image;      
+    $event_image='';
+        
+    if($request->hasFile('image'))
+    {
+        
+        $event_image=date('YmdHis').'.'.$request->file('image')->getClientOriginalExtension();
+       
+         $request->file('image')->storeAs('/events',$event_image);
+         File::delete('images/events/'. $events->image);
 
-    // $event_image='IMG' . '-' . date('Ymdhsi').  '.'.$img->getClientOriginalExtension();
+    }
 
-    // if($img->isValid())
-    // {
-    //     $img->storeAs('/events',$event_image);
-    // }
-
-      $events=Event::find($event_id);
+      
 
       $events->update
       ([
         'name'=>$request->event_name,
         'description'=>$request->description,
-        // 'image'=>$event_image,
+        'image'=>$event_image,
 
       ]);
       notify()->success('Event Updated Successfully.');

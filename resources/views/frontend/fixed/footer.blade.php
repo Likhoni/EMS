@@ -11,17 +11,8 @@
               <a href="https://themefisher.com/"><i class="fa fa-facebook"></i></a>
             </li>
             <li class="list-inline-item">
-              <a href="https://themefisher.com/"><i class="fa fa-twitter"></i></a>
-            </li>
-            <li class="list-inline-item">
               <a href="https://themefisher.com/"><i class="fa fa-instagram"></i></a>
-            </li>
-            <li class="list-inline-item">
-              <a href="https://themefisher.com/"><i class="fa fa-rss"></i></a>
-            </li>
-            <li class="list-inline-item">
-              <a href="https://themefisher.com/"><i class="fa fa-vimeo"></i></a>
-            </li>
+            </li> 
           </ul>
         </div>
 
@@ -33,14 +24,45 @@
 <footer class="subfooter">
   <div class="container">
     <div class="row">
-      <div class="col-md-6 align-self-center">
+      <div class="col-md-4 align-self-center">
         <div class="copyright-text">
-          <p><a href="index.html">Eventre</a> &copy; 2021, Designed &amp; Developed by <a href="https://themefisher.com/">Themefisher</a></p>
+                <div>
+                    <h4 style="color:white ;" >Address</h4>
+                    <p style="color:white ;" >
+                        Sector-11, Uttara, Dhaka<br>
+                    </p>
+                </div>    
         </div>
       </div>
-      <div class="col-md-6">
-        <a href="#" class="to-top"><i class="fa fa-angle-up"></i></a>
+      <div class="col-md-4 align-self-center">
+        <div class="copyright-text">
+                <div>
+                    <p style="color:white ;" >
+                        <strong>Phone:</strong>01725900442<br>
+                        <strong>Email:</strong> likhonijeedni@gmail.com<br>
+                    </p>
+                </div>    
+        </div>
       </div>
+      <div class="col-md-3 align-self-center">
+        <div class="copyright-text">
+                <div>
+                    <h4 style="color:white ;">Opening Hours</h4>
+                    <p style="color:white ;">
+                        <strong>Mon-Sun: </strong> 10AM - 6PM<br>
+                        <strong>Friday:</strong> Closed<br>
+                    </p>
+                </div>   
+        </div>
+      </div>
+      <div class="col-md-1">
+        <a href="#" class="to-top"><i class="fa fa-angle-up"></i></a>
+      </div> 
     </div>
   </div>
 </footer>
+
+
+
+
+

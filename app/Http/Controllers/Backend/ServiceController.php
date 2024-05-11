@@ -7,6 +7,7 @@ use App\Models\Backend\Service;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use App\Models\Backend\Event;
+use Illuminate\Support\Facades\File;
 
 class ServiceController extends Controller
 {
@@ -39,11 +40,11 @@ class ServiceController extends Controller
         }
         // dd($request->all());
         
-        $fileName='';
+        $service_image='';
         if($request->hasFile('service_image'))
         {
-            $fileName=date('YmdHis').'.'.$request->file('service_image')->getClientOriginalExtension();
-            $request->file('service_image')->storeAs('/services',$fileName);
+            $service_image=date('YmdHis').'.'.$request->file('service_image')->getClientOriginalExtension();
+            $request->file('service_image')->storeAs('/services',$service_image);
         }
         //dd($request);
         Service::create
@@ -51,11 +52,57 @@ class ServiceController extends Controller
             'name'=>$request->service_name,
             'event_id'=>$request->event_id,
             'description'=>$request->description,
-            'image'=>$fileName 
+            'image'=>$service_image
         ]);
 
         notify()->success('Service created successfully.');
 
         return redirect()->route('admin.service.list');
     }
+
+    public function serviceView($service_id)
+    {
+        $services=Service::find($service_id);
+        return view('backend.pages.services.serviceView',compact('services'));
+    }
+
+    public function serviceEdit($service_id)
+    {
+        $services=Service::find($service_id);
+        return view('backend.pages.services.serviceEditForm',compact('services'));
+    }
+
+    public function serviceUpdate(Request $request,$service_id)
+    {
+         $services=Service::find($service_id);
+
+        $service_image='';
+        if($request->hasFile('service_image'))
+        {
+            $service_image=date('YmdHis').'.'.$request->file('service_image')->getClientOriginalExtension();
+            $request->file('service_image')->storeAs('/services',$service_image);
+            File::delete('images/services/'. $services->image);
+        }
+        
+        $services->update
+        ([
+            'name'=>$request->service_name,
+            'event_id'=>$request->event_id,
+            'description'=>$request->description,
+            'image'=>$service_image
+        ]);
+
+        notify()->success('Service created successfully.');
+
+        return redirect()->route('admin.service.list');
+    }
+
+    public function serviceDelete($service_id)
+   {
+       $services=Service::find($service_id);
+       $services->delete();
+       return redirect()->back();
+   }
+
+
 }
