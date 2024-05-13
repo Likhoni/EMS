@@ -9,6 +9,6 @@ class WebSingleViewController extends Controller
 {
     public function singleView()
     {
-        return view('frontend.pages.newpage4');
+        return view('frontend.pages.singleView');
     }
 }

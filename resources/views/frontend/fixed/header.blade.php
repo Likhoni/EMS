@@ -14,13 +14,16 @@
         </li>
         
         <li class="nav-item dropdown">
-          <a class="nav-link" href="#!" data-toggle="dropdown">Events<i class="fa fa-angle-down"></i></a>
+          <a class="nav-link" href="#!" data-toggle="dropdown">Events<i class="fa fa-angle-down"><span></span></i></a>
           <!-- Dropdown list -->
           <ul class="dropdown-menu">
             @foreach($events as $data)
-            <li><a class="dropdown-item" href="about-us.html">{{$data->name}}</a></li>
+            <li><a class="dropdown-item" href="">{{$data->name}}</a></li>
             @endforeach
           </ul>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="{{route('create.appointment')}}">Appointment<span></span></a>
         </li>
         
         @auth('customerGuard')

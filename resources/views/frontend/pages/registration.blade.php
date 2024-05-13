@@ -2,14 +2,14 @@
 @section('content')
 <div>
 <section class="registration">
-			<div style="padding:0px;margin-top: 50px; margin-bottom:0px;" class="">
-				<div  class="registration-block bg-registration overlay-dark">
+			<div style="padding:0px;margin-top: 20px; margin-bottom:0px;" class="">
+				<div  class="registration-block bg-registration ">
 					<div class="block" >
 					<div class="row" >
     <div class="col-md-3"> </div>
-	     <div class="col-md-6" style=" padding:10px;border-radius:15px;">
+	     <div class="col-md-6" style=" padding:0px;border-radius:15px; ">
 						<div style="margin-top:80px;" class="title text-left">
-							<h3>Register to <span class="alternate">Eventre</span></h3>
+							<h3 style="color: black;"><strong>Register to </strong> <span class="alternate"><strong>Eventre</strong></span></h3>
 							
 						</div>
 						<form action="{{route('do-registration')}}" method="post" class="row">
@@ -23,7 +23,8 @@
 							<div class="col-md-6">
 								<input name="phone" type="tel" class="form-control main" placeholder="Phone" required>
 							</div>
-						    <div class="col-md-6">
+						   
+							<div class="col-md-6">
 								<input name="password" type="password" class="form-control main" placeholder="Password" required>
                             </div>
 							

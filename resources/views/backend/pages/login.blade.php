@@ -18,7 +18,7 @@
 		<div class="container">
 			<div class="row justify-content-center">
 				<div class="col-md-6 text-center mb-5">
-					<h2 class="heading-section">Login to Eventre</h2>
+					<h6 class="heading-section"> <strong>Login to Eventre</strong></h6>
 				</div>
 			</div>
       @notifyCss

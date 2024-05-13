@@ -96,7 +96,7 @@ class EventController extends Controller
        
          $request->file('image')->storeAs('/events',$event_image);
          File::delete('images/events/'. $events->image);
-
+ 
     }
 
       

@@ -3,7 +3,7 @@
 @section('content')
 
 <h1>Appointment Details</h1>
-<a href="{{route('create.appointment')}}" class="btn btn-success">Create Appointment</a>
+
 <table class="table">
   <thead>
     <tr>

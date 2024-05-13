@@ -17,7 +17,7 @@ class ServiceController extends Controller
         $services=Service::paginate(4);
         return view('backend.pages.services.serviceList',compact('services'));
     }
-    public function createService()
+    public function createService() 
     {
         $events=Event::all();
         return view('backend.pages.services.createService',compact('events'));

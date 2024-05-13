@@ -20,6 +20,7 @@ class WebCustomerController extends Controller
             
             'name'=>$request->name,
             'email'=>$request->email,
+            'address'=>$request->address,
             'phone'=>$request->phone,
             'password'=>bcrypt($request->password)
 
@@ -48,11 +49,21 @@ class WebCustomerController extends Controller
     }
 
     public function logout()
+    
     {
       auth('customerGuard')->logout();
       // Auth::logout();
       notify()->success('Logout Successful');
       return redirect()->route('home.page');
+    
     }
-     
+
+    public function customerList()
+    
+    {
+      $customerDetails=Customer::paginate(4);
+      return view('frontend.pages.customer.customerList',compact('customerDetails'));
+
+    }
+    
 }

@@ -28,7 +28,7 @@
    <td>{{$data->description}}</td>
    <td><img style="width: 100px;height:100px" src="{{ url('images/services', $data->image) }}"
    alt="" srcset=""></td>
-    <!-- <td>{{$data->image}}</td>                      -->
+    
    <td>
      <a class="btn btn-info" href="{{route('admin.service.edit',$data->id)}}">Edit</a>
      <a class="btn btn-success" href="{{route('admin.service.view',$data->id)}}">View</a>

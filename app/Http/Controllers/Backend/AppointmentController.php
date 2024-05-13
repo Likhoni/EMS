@@ -17,7 +17,7 @@ class AppointmentController extends Controller
 
     public function createAppointment()
     {
-        return view('backend.pages.appointment.createAppointment');
+        return view('frontend.pages.appointment.appointmentForm');
     }
 
     public function appointmentDetailsStore(Request $request)
@@ -45,7 +45,7 @@ class AppointmentController extends Controller
         ]);
         notify()->success("Appointment Created Successfully");
 
-        return redirect()->back();
+        return redirect()->route('home.page');
     }
 }
  

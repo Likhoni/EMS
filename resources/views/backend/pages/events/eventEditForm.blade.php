@@ -2,7 +2,7 @@
 @section('content')
 
 <h1>Create Event Type</h1>
-
+ 
 
 
 <form action="{{route('admin.event.update', $events->id)}}" method="post" enctype="multipart/form-data">                             
@@ -11,7 +11,7 @@
   <div class="form-group">
     <label for="">Event Name</label>
     <input name="event_name" type="text" class="form-control" id="" value="{{$events->name}}" placeholder="Enter Event name">
-  </div>
+  </div> 
 
   <br>
   <div class="form-group">

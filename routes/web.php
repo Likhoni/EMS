@@ -75,8 +75,12 @@ Route::group(['prefix'=>'admin'],function()           //prefix
     //Appointments->
 
            Route::get('/appointment/details',[AppointmentController::class,'appointmentDetails'])->name('admin.appointment.details');
-           Route::get('/create/appointment',[AppointmentController::class,'createAppointment'])->name('create.appointment');
-           Route::post('/appointment/details/store',[AppointmentController::class,'appointmentDetailsStore'])->name('admin.appointment.details.store');
+           
+    
+    //Customers->
+          
+           Route::get('/customer/list',[WebCustomerController::class,'customerList'])->name('admin.customer.list');
+
 
 
    });
@@ -96,6 +100,9 @@ Route::group(['prefix'=>'admin'],function()           //prefix
          //Login-Logout 
            Route::get('/login',[WebCustomerController::class,'login'])->name('login');
            Route::post('/do-login',[WebCustomerController::class,'doLogin'])->name('do.login');
+
+           Route::group(['middleware'=>'customerAuth'],function(){ 
+
            Route::get('/logout',[WebCustomerController::class,'logout'])->name('logout');
 
          //Profile
@@ -103,3 +110,10 @@ Route::group(['prefix'=>'admin'],function()           //prefix
 
          //Single-view
           Route::get('/single-view',[WebSingleViewController::class,'singleView'])->name('single.view');
+
+
+         //Appointments
+         Route::get('/create/appointment',[AppointmentController::class,'createAppointment'])->name('create.appointment');
+         Route::post('/appointment/details/store',[AppointmentController::class,'appointmentDetailsStore'])->name('appointment.details.store');
+  
+        });

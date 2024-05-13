@@ -3,7 +3,7 @@
 <div>
 <section class="registration">
 			<div class="">
-				<div class="registration-block bg-registration-one overlay-dark">
+				<div class="registration-block bg-registration-one" >
 					<div class="block">
 					<div class="row" style="margin-top: 0px; margin-bottom:10px;">
     <div class="col-md-3"> </div>
@@ -16,7 +16,7 @@
                                     </div>
                                     <div class="col-md-6">
                                     <div class="title text-left">
-                                    <h3>Login to <span class="alternate">Eventre</span></h3>
+                                    <h3 style="color: black;"><strong>Login to </strong> <span class="alternate"><strong>Eventre</strong> </span></h3>
                                     </div>
 								<input name="email" type="email" class="form-control main" placeholder="Email" required>
 								<input name="password" type="password" class="form-control main" placeholder="Password" required>
@@ -28,8 +28,7 @@
 						</form>
 					</div>
 					<div class="col-md-3">
-
-</div>
+					</div>
 				</div>
 			</div>
 		</div>
