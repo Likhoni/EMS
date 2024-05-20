@@ -21,19 +21,7 @@
      </select>
   </div>
 
- <br>
-
-  <div class="form-group">
-    <label for="">Description</label>
-    <textarea name="description" id="" class="form-control" placeholder="Enter Description" ></textarea>
-  </div>
-
- <br>
-
-  <div class="form-group">
-    <label for="">Upload Image</label>
-    <input name="service_image" type="file" class="form-control" id="" placeholder="Upload service Image">
-  </div>
+ 
 
   <br>
 

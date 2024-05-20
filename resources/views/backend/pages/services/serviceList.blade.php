@@ -12,8 +12,7 @@
       <th scope="col">Id</th>
       <th scope="col">Name</th>
       <th scope="col">Event</th>
-      <th scope="col">Description</th>
-      <th scope="col">Image</th>
+      
       <th>Action</th>
     </tr>
   </thead>
@@ -25,9 +24,8 @@
    <th scope="row">{{$data->id}}</th>
    <td>{{$data->name}}</td>
    <td>{{$data->event->name}}</td>
-   <td>{{$data->description}}</td>
-   <td><img style="width: 100px;height:100px" src="{{ url('images/services', $data->image) }}"
-   alt="" srcset=""></td>
+   <!-- <td><img style="width: 100px;height:100px" src="{{ url('images/services', $data->image) }}"
+   alt="" srcset=""></td> -->
     
    <td>
      <a class="btn btn-info" href="{{route('admin.service.edit',$data->id)}}">Edit</a>

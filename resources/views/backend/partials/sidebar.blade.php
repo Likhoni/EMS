@@ -21,17 +21,30 @@
               </a>
             </li>
             <li class="nav-item">
-              <a class="nav-link d-flex align-items-center gap-2 active" aria-current="page" href="{{route('admin.booking.details')}}">
+              <a class="nav-link d-flex align-items-center gap-2 active" aria-current="page" href="{{route('admin.package.list')}}">
+                <svg class="bi"><use xlink:href="#house-fill"/></svg>
+                Packages
+              </a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link d-flex align-items-center gap-2 active" aria-current="page" href="{{route('admin.package.service.list')}}">
+                <svg class="bi"><use xlink:href="#house-fill"/></svg>
+                Packages Service
+              </a>
+            </li>
+            <li>
+             <a class="nav-link d-flex align-items-center gap-2 active" aria-current="page" href="{{route('admin.customer.list')}}">
+                <svg class="bi"><use xlink:href="#house-fill"/></svg>
+                Customers
+              </a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link d-flex align-items-center gap-2 active" aria-current="page" href="{{route('admin.booking')}}">
                 <svg class="bi"><use xlink:href="#house-fill"/></svg>
                 Bookings
               </a>
             </li>
             <li class="nav-item">
-              <a class="nav-link d-flex align-items-center gap-2 active" aria-current="page" href="{{route('admin.customer.list')}}">
-                <svg class="bi"><use xlink:href="#house-fill"/></svg>
-                Customer
-              </a>
-            </li>
             <li class="nav-item">
               <a class="nav-link d-flex align-items-center gap-2 active" aria-current="page" href="{{route('admin.payment.details')}}">
                 <svg class="bi"><use xlink:href="#house-fill"/></svg>

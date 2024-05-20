@@ -11,11 +11,7 @@
     <input required name="event_name" type="text" class="form-control" id="" placeholder="Enter Event name">
   </div>
 
-  <br>
-  <div class="form-group">
-    <label for="">Description</label>
-    <textarea name="description" id="" class="form-control" placeholder="Enter Description" ></textarea>
-  </div>
+
   
  <br>
   <div class="form-group">

@@ -2,7 +2,7 @@
 @section('content')
 
 <h1>Create Event Type</h1>
- 
+  
 
 
 <form action="{{route('admin.event.update', $events->id)}}" method="post" enctype="multipart/form-data">                             
@@ -14,11 +14,7 @@
   </div> 
 
   <br>
-  <div class="form-group">
-    <label for="">Description</label>
-    <textarea name="description" id="" class="form-control" placeholder="Enter Description" >{{$events->description}}</textarea>
-  </div>
- <br>
+
   <div class="form-group">
     <label for="">Upload Image</label>
     <img style="width: 100px;height:100px" src="{{url('images/events',$events->image)}}" alt="">

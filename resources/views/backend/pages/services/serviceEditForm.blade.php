@@ -11,11 +11,11 @@
   </div>
 
   <br>
-
+ 
   <div class="form-group">
     <label for="">Service Event</label>
     <select class="form-control" name="event_id" id="">
-    <option>select event</option>
+    <option>{{$services->event->name}}</option>
       @foreach ($events as $data)
      <option value ="{{$data->id}}">{{$data->name}}</option>
      @endforeach 
@@ -24,12 +24,7 @@
 
  <br>
 
-  <div class="form-group">
-    <label for="">Description</label>
-    <textarea name="description" id="" class="form-control" placeholder="Enter Description" >{{$services->description}}</textarea>
-  </div>
 
- <br>
 
   <div class="form-group">
     <label for="">Upload Image</label>

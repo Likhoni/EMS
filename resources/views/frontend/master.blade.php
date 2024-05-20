@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 
 <html lang="en">
+
 <head>
 
   <!-- Basic Page Needs
@@ -15,10 +16,10 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
   <meta name="author" content="Themefisher">
   <meta name="generator" content="Themefisher Eventre HTML Template v1.0">
-  
+
   <!-- theme meta -->
   <meta name="theme-name" content="eventre" />
-  
+
   <!-- PLUGINS CSS STYLE -->
   <!-- Bootstrap -->
   <link href="{{url('css/plugins/bootstrap/bootstrap.min.css')}}" rel="stylesheet">
@@ -42,46 +43,46 @@
 
 
 
-<!--========================================
+  <!--========================================
 =            Navigation Section            =
 =========================================-->
 
 
 
-@include('frontend.fixed.header')
+  @include('frontend.fixed.header')
 
 
 
 
-<!--====  End of Navigation Section  ====-->
-
-
-
-
-
-
-@yield('content')
+  <!--====  End of Navigation Section  ====-->
 
 
 
 
 
 
+  @yield('content')
 
 
-<!--============================
+
+
+
+
+
+
+  <!--============================
 =            Footer            =
 =============================-->
 
 
 
 
-@include('frontend.fixed.footer')
+  @include('frontend.fixed.footer')
 
 
 
 
-<!--====  End of Footer ====-->
+  <!--====  End of Footer ====-->
 
 
 
@@ -106,6 +107,3 @@
 </body>
 
 </html>
-
-
-

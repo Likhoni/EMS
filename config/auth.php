@@ -67,12 +67,12 @@ return [
     'providers' => [
         'users' => [
             'driver' => 'eloquent',
-            'model' => App\Models\Backend\User::class,
+            'model' => App\Models\User::class,
         ],
 
         'customerProvider' => [
             'driver' => 'eloquent',
-            'model' => App\Models\Frontend\Customer::class,
+            'model' => App\Models\Customer::class,
         ],
 
         // 'users' => [

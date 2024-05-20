@@ -2,7 +2,8 @@
 
 namespace App\Providers;
 
-use App\Models\Backend\Event;
+
+use App\Models\Package;
 use Illuminate\Pagination\Paginator;
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Support\Facades\View;
@@ -25,11 +26,11 @@ class AppServiceProvider extends ServiceProvider
     {
         Paginator::useBootstrap();
 
-        if(Schema::hasTable('events'))
+        if(Schema::hasTable('packages'))
         {
-            $events=Event::all();
+            $packages=Package::all();
             // dd($events);
-            View::share('events',$events);
+            View::share('packages',$packages);
         }
     }
 }

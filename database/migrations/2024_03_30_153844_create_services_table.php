@@ -15,9 +15,7 @@ return new class extends Migration
             $table->id();
             $table->string('name');
             $table->foreignId('event_id')->constrained('events');
-            // $table->integer('event_id');
-            $table->text('description');    
-            $table->string('image')->nullable();
+            // $table->integer('event_id');      
             $table->timestamps();
         });
     }

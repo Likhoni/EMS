@@ -374,14 +374,14 @@ button:hover {
 }
 
 .form-control {
-  background: white;
-  border: 1px solid #f9f7f7;
+  background: rgb(255, 255, 255);
+  border: 1px solid #121111;
   border-radius: 0;
   font-size: 0.9375rem;
   padding: 15px 20px;
   height: 48px;
   margin-bottom: 20px;
-  color: #f7f5f5;
+  color: #000000;
 }
 .form-control:focus {
   border: 1px solid #ff6600;
@@ -531,6 +531,12 @@ select.form-control:not([size]):not([multiple]) {
 .btn-white-md:hover {
   background: #ff6600;
   color: #fff;
+}
+.btn-white-md2 {
+  background: #ff6600;
+  color: #fff;
+  padding: 15px 40px;
+  border-radius: 0;
 }
 
 .btn-rounded-icon {

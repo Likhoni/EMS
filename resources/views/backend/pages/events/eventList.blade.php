@@ -11,7 +11,6 @@
     <tr>
       <th scope="col">Id</th>
       <th scope="col">Name</th>
-      <!-- <th scope="col">Description</th> -->
       <th scope="col">Image</th>
       <th>Action</th>
     </tr>
@@ -23,7 +22,6 @@
     <tr>
       <th scope="row">{{$data->id}}</th>
       <td>{{$data->name}}</td>
-      <!-- <td>{{$data->description}}</td> -->
       <td><img style="width: 100px;height:100px" src="{{ url('images/events', $data->image) }}"
       alt="" srcset=""></td>
       <td> 

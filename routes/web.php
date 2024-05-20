@@ -1,20 +1,26 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\Backend\HomeController;
-use App\Http\Controllers\Backend\EventController;
-use App\Http\Controllers\Backend\UserController;
-use App\Http\Controllers\Backend\ServiceController;
-use App\Http\Controllers\Backend\BookingController;
-use App\Http\Controllers\Backend\PaymentController;
-use App\Http\Controllers\Backend\AppointmentController;
-use App\Http\Controllers\Frontend\WebHomeController;
-use App\Http\Controllers\Frontend\WebAboutUsController;
-use App\Http\Controllers\Frontend\WebContactUsController;
-use App\Http\Controllers\Frontend\WebProfileController;
-use App\Http\Controllers\Frontend\WebCustomerController;
-use App\Http\Controllers\Frontend\WebSingleViewController;
-use App\Http\Controllers\Frontend\WebEventController;
+use App\Http\Controllers\HomeController;
+use App\Http\Controllers\EventController;
+use App\Http\Controllers\PackageController;
+use App\Http\Controllers\PackageServiceController;
+use App\Http\Controllers\UserController;
+use App\Http\Controllers\ServiceController;
+use App\Http\Controllers\BookingController;
+use App\Http\Controllers\PaymentController;
+use App\Http\Controllers\AppointmentController;
+use App\Http\Controllers\FoodController;
+use App\Http\Controllers\WebHomeController;
+use App\Http\Controllers\WebAboutUsController;
+use App\Http\Controllers\WebBookingController;
+use App\Http\Controllers\WebContactUsController;
+use App\Http\Controllers\WebProfileController;
+use App\Http\Controllers\WebCustomerController;
+use App\Http\Controllers\WebEventController;
+use App\Http\Controllers\WebPackageController;
+use App\Http\Controllers\WebSampleWorkController;
+use App\Models\Package;
 
  // //Backend
 
@@ -56,15 +62,40 @@ Route::group(['prefix'=>'admin'],function()           //prefix
            Route::get('/service/delete/{service_id}',[ServiceController::class,'serviceDelete'])->name('admin.service.delete');
 
      
-    //Bookings-> 
-
-           Route::get('/booking/details',[BookingController::class,'bookingDetails'])->name('admin.booking.details');
-
-           Route::get('/create/booking',[BookingController::class,'createBooking'])->name('create.booking');
-           Route::post('/booking/details/store',[BookingController::class,'bookingDetailsStore'])->name('admin.booking.details.store');
+     //Packages
 
 
-    //Payments->
+           Route::get('/package/list',[PackageController::class,'packageList'])->name('admin.package.list');
+
+           Route::get('/create/package',[PackageController::class,'createPackage'])->name('admin.create.package');
+           Route::post('/package/store',[PackageController::class,'packageStore'])->name('admin.package.store');  
+
+           Route::get('/package/view/{package_id}',[PackageController::class,'packageView'])->name('admin.package.view');
+           Route::get('/package/edit/{package_id}',[PackageController::class,'packageEdit'])->name('admin.package.edit');
+           Route::put('/package/update/{package_id}',[PackageController::class,'packageUpdate'])->name('admin.package.update');
+           Route::get('/package/delete/{package_id}',[PackageController::class,'packageDelete'])->name('admin.package.delete');
+          
+           
+      //Packages service       
+
+           Route::get('/package/service/list',[PackageServiceController::class,'packageServiceList'])->name('admin.package.service.list');
+           Route::get('/package/service/event',[PackageServiceController::class,'packageServiceEvent'])->name('admin.package.service.event');
+           
+           Route::get('/package/service/create/{id}',[PackageServiceController::class,'packageServiceCreate'])->name('admin.package.service.create');
+           Route::post('/package/service/store',[PackageServiceController::class,'packageServiceStore'])->name('admin.package.service.store');
+           
+           Route::get('/package/service/view/{p_s_id}',[PackageServiceController::class,'packageServiceView'])->name('admin.package.service.view');
+           Route::get('/package/service/edit/{p_s_id}',[PackageServiceController::class,'packageServiceEdit'])->name('admin.package.service.edit');
+           Route::put('/package/service/update/{p_s_id}',[PackageServiceController::class,'packageServiceUpdate'])->name('admin.package.service.update');
+           Route::get('/package/service/delete/{p_s_id}',[PackageServiceController::class,'packageServiceDelete'])->name('admin.package.service.delete');
+          
+
+      //Bookings-> 
+
+           Route::get('/booking',[BookingController::class,'booking'])->name('admin.booking');
+          
+
+     //Payments->
 
            Route::get('/payment/details',[PaymentController::class,'paymentDetails'])->name('admin.payment.details');
     
@@ -80,10 +111,8 @@ Route::group(['prefix'=>'admin'],function()           //prefix
     //Customers->
           
            Route::get('/customer/list',[WebCustomerController::class,'customerList'])->name('admin.customer.list');
-
-
-
-   });
+           Route::get('/delete/customer',[WebCustomerController::class, 'deleteCustomer'])->name('admin.delete.customer');
+ });
       
 
 });
@@ -97,6 +126,10 @@ Route::group(['prefix'=>'admin'],function()           //prefix
            Route::get('/registration',[WebCustomerController::class,'registration'])->name('registration');
            Route::post('/do-registration',[WebCustomerController::class,'doRegistration'])->name('do-registration');
         
+           //Sample Work
+
+          Route::get('/sample/work',[WebSampleWorkController::class,'sampleWork'])->name('sample.work');
+
          //Login-Logout 
            Route::get('/login',[WebCustomerController::class,'login'])->name('login');
            Route::post('/do-login',[WebCustomerController::class,'doLogin'])->name('do.login');
@@ -106,14 +139,30 @@ Route::group(['prefix'=>'admin'],function()           //prefix
            Route::get('/logout',[WebCustomerController::class,'logout'])->name('logout');
 
          //Profile
-           Route::get('/view/profile/{id}',[WebProfileController::class,'viewProfile'])->name('view.profile');
+           Route::get('/view/profile',[WebProfileController::class,'viewProfile'])->name('view.profile');
+           Route::get('/edit/profile',[WebProfileController::class,'editProfile'])->name('edit.profile');
+           Route::put('/update/profile',[WebProfileController::class,'updateProfile'])->name('update.profile');
+           Route::get('/delete/profile',[WebProfileController::class,'deletetProfile'])->name('delete.profile');
+           
+       
 
-         //Single-view
-          Route::get('/single-view',[WebSingleViewController::class,'singleView'])->name('single.view');
-
-
-         //Appointments
-         Route::get('/create/appointment',[AppointmentController::class,'createAppointment'])->name('create.appointment');
-         Route::post('/appointment/details/store',[AppointmentController::class,'appointmentDetailsStore'])->name('appointment.details.store');
+         //Appointments 
+          Route::get('/create/appointment',[AppointmentController::class,'createAppointment'])->name('create.appointment');
+          Route::post('/appointment/details/store',[AppointmentController::class,'appointmentDetailsStore'])->name('appointment.details.store');
   
+
+         //packages      
+          Route::get('/all/events',[WebPackageController::class,'allEvents'])->name('all.events');
+
+          Route::get('/all/packages/{id}',[WebPackageController::class,'allPackages'])->name('all.packages');
+          Route::get('/all/packages/services/details/{id}',[WebPackageController::class,'allPackagesDetails'])->name('all.packages.services.details');
+
+
+          //Booking
+          
+          Route::get('/booking/form/{id}',[WebBookingController::class,'bookingForm'])->name('booking.form');
+          Route::post('/booking/store',[WebBookingController::class,'bookingStore'])->name('booking.store');
+
+          
+
         });
