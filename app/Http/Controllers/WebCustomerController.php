@@ -5,88 +5,114 @@ namespace App\Http\Controllers;
 use App\Http\Controllers\Controller;
 use App\Models\Customer;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
 
 class WebCustomerController extends Controller
 {
-     public function registration()
-     {
-        return view('frontend.pages.registration');
-     }
+   public function registration()
+   {
+      return view('frontend.pages.registration');
+   }
 
-     public function doRegistration(Request $request)
-     {
+   public function doRegistration(Request $request)
+   {
+      $checkValidation = Validator::make(
+            $request->all(),
+            [
+               'name' => 'required',
+               'email' => 'required',
+               'address' => 'required',
+               'image' => 'required',
+               'phone' => 'required',
+               'password' => 'required'       // |size:10000'
 
-   
-      $customer_image='';
-        
-      if($request->hasFile('image'))
-     
-      {
-         
-          $customer_image=date('YmdHis').'.'.$request->file('image')->getClientOriginalExtension();         
-           $request->file('image')->storeAs('/customers',$customer_image);
-           
+            ]
+         );
 
+      if ($checkValidation->fails()) {
+         notify()->error("Something Went Wrong.");
+         // notify()->error($checkValidation->getMessageBag());
+         return redirect()->back();
       }
-        
-        Customer::create([
-            
-            'name'=>$request->name,
-            'email'=>$request->email,
-            'address'=>$request->address,
-            'image'=>$customer_image,
-            'phone'=>$request->phone,
-            'password'=>bcrypt($request->password)
 
-        ]);
-        return redirect()->route('login');
-     }
+      $customer_image = '';
+
+      if ($request->hasFile('image')) {
+
+         $customer_image = date('YmdHis') . '.' . $request->file('image')->getClientOriginalExtension();
+         $request->file('image')->storeAs('/customers', $customer_image);
+      }
+
+      Customer::create([
+
+         'name' => $request->name,
+         'email' => $request->email,
+         'address' => $request->address,
+         'image' => $customer_image,
+         'phone' => $request->phone,
+         'password' => bcrypt($request->password)
+
+      ]);
+      notify()->success('Registration Successful');
+      return redirect()->route('login');
+   }
 
 
-     public function login()
-     {
-        return view('frontend.pages.login');
-     }
-     public function doLogin(Request $request)
-     { 
-      $customerInput=['email'=>$request->email,'password'=>$request->password];
-      $checklogin=auth()->guard('customerGuard')->attempt($customerInput);
-      if($checklogin)
-      {
+   public function login()
+   {
+      return view('frontend.pages.login');
+   }
+   public function doLogin(Request $request)
+   {
+      $customerInput = ['email' => $request->email, 'password' => $request->password];
+      $checklogin = auth()->guard('customerGuard')->attempt($customerInput);
+      $checkValidation = Validator::make(
+            $request->all(),
+            [
+
+               'email' => 'required',
+               'password' => 'required'       // |size:10000'
+
+            ]
+         );
+
+      if ($checkValidation->fails()) {
+         notify()->error("Something Went Wrong.");
+         // notify()->error($checkValidation->getMessageBag());
+         return redirect()->back();
+      }
+      if ($checklogin) {
          notify()->success('Login successful.');
          return redirect()->route('home.page');
       }
-      
 
-         notify()->success('Invalid Credentials.');
-         return redirect()->back();
-    
-    }
 
-    public function logout()
-    
-    {
+      notify()->success('Invalid Credentials.');
+      return redirect()->back();
+   }
+
+   public function logout()
+
+   {
       auth('customerGuard')->logout();
       // Auth::logout();
       notify()->success('Logout Successful');
       return redirect()->route('home.page');
-    
-    }
+   }
 
-    public function customerList()
-    
-    {
-      $customerDetails=Customer::paginate(4);
-      return view('backend.pages.customer.customerList',compact('customerDetails'));
+   public function customerList()
 
-    }
+   {
+      $customerDetails = Customer::paginate(4);
+      return view('backend.pages.customer.customerList', compact('customerDetails'));
+   }
 
-    public function deleteCustomer()
-    
-    {
-      $customer=Customer::find(auth('customerGuard')->user()->id);
+   public function deleteCustomer()
+
+   {
+      $customer = Customer::find(auth('customerGuard')->user()->id);
       $customer->delete();
+      notify()->success('Customer Deleted Successfully.');
       return redirect()->back();
-    }
-    
+   }
 }

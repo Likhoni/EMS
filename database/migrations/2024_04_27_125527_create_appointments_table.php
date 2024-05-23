@@ -15,8 +15,10 @@ return new class extends Migration
             $table->id();
             $table->string('user_name');
             $table->string('phone_number');   
-            $table->string('email')->unique();
+            $table->string('email');
             $table->date('date');
+            $table->time('time');
+            $table->string('status')->default('Pending');
             $table->timestamps();
         });
     }

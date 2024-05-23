@@ -36,12 +36,7 @@
     <input required name="guest" type="number" class="form-control" id="" placeholder="Number of Guest">
   </div>
   <br>
-
-
-
-    
-
-
+  
   <button type="submit" class="btn btn-primary">Submit</button>
 </form>
 @endsection

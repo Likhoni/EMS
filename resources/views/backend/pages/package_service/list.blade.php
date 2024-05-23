@@ -32,14 +32,12 @@
       <!-- <td><img style="width: 100px;height:100px" src="{{ url('images/events', $data->image) }}"
       alt="" srcset=""></td> -->
       <td>
-        <a class="btn btn-info" href="">Edit</a>
-        <a class="btn btn-success" href="">View</a>
-        <a class="btn btn-danger" href="">Delete</a>
+         <a class="btn btn-danger" href="{{route('admin.package.service.delete',$data->id)}}">Delete</a>
       </td>
     </tr>
 
     @endforeach
   </tbody>
 </table>
-
+{{$packages->links()}}
 @endsection

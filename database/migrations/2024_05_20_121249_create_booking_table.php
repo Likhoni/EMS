@@ -19,8 +19,11 @@ return new class extends Migration
             $table->string('phone_number');   
             $table->string('email');
             $table->string('amount');
+            $table->string('transaction_id');
             $table->time('start_time');
             $table->time('end_time');
+            $table->string('status')->default('Pending');
+            $table->string('payment_status')->default('Pending');
             $table->timestamps();
         });
     }

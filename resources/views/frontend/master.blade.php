@@ -3,6 +3,11 @@
 <html lang="en">
 
 <head>
+<style type="text/css"> .notify{ z-index: 1000000; margin-top: 5%; } </style>
+
+
+
+@notifyCss
 
   <!-- Basic Page Needs
   ================================================== -->
@@ -64,6 +69,7 @@
   @yield('content')
 
 
+  @include('notify::components.notify')
 
 
 
@@ -104,6 +110,13 @@
   <script src="{{url('js/plugins/google-map/gmap.js')}}"></script>
   <!-- Custom Script -->
   <script src="{{url('js/script.js')}}"></script>
+
+
+@notifyJs
+[if lt IE 9]>
+  <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+  <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+<![endif]
 </body>
 
-</html>
+</html> 

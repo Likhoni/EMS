@@ -31,7 +31,7 @@
       <a style="color:black;" href="{{route('logout')}}" class="ticket">Logout<a style="color:black;" class="ticket">|</a></a>
 
       <a href="{{route('view.profile')}}" class="ticket" style="color:black;">
-     <img src="{{url('/images/customers/', auth('customerGuard')->user()->image)}}" width="30" height="24" alt="">{{auth('customerGuard')->user()->name}}
+    {{auth('customerGuard')->user()->name}}
       </a>
 
       @endauth
@@ -41,7 +41,7 @@
 
       <a style="color:black;" href="{{route('registration')}}" class="ticket">Registration</a>
 
-      @endguest
+      @endguest     
 
     </div>
   </div>

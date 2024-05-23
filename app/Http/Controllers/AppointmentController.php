@@ -15,7 +15,7 @@ class AppointmentController extends Controller
         return view('backend.pages.appointment.appointmentDetails',compact('appointments'));
     }
 
-    public function createAppointment()
+    public function createAppointment() 
     {
         return view('frontend.pages.appointment.appointmentForm');
     }
@@ -27,13 +27,15 @@ class AppointmentController extends Controller
             'user_name'=>'required',
             'phone_number'=>'required',
             'email'=>'required',
-            'date'=>'required'
+            'date'=>'required',
+            'time'=>'required'
+
 
         ]);
 
         if($checkValidation->fails())
         {
-            notify()->error("something went wrong");
+            notify()->error("Something Went Wrong");
             return redirect()->back();
         }
         Appointment::create
@@ -41,11 +43,41 @@ class AppointmentController extends Controller
             'user_name'=>$request->user_name,
             'phone_number'=>$request->phone_number,
             'email'=>$request->email,
-            'date'=>$request->date
+            'date'=>$request->date,
+            'time'=>$request->time
         ]);
         notify()->success("Appointment Created Successfully");
 
-        return redirect()->route('home.page');
+        return redirect()->route('view.profile');
+    }
+
+    public function accept($id)
+    {
+        $appointments = Appointment::find($id);
+        $appointments->update(['status'=>'Accept']);
+
+        notify()->success("Appointment Accepted.");
+        return redirect()->back();
+    }
+
+    public function reject($id)
+    {
+        $appointments = Appointment::find($id);
+        $appointments->update(['status'=>'Reject']);
+
+        notify()->error("Appointment rejected.");
+        return redirect()->back();
+    }
+
+    public function cancelBooking($id) {
+        $appointments =  Appointment::find($id);
+        // dd($id);
+        $appointments->update([
+        'status'=>'Cancelled'
+      ]);
+
+      notify()->success('Appointment cancel successfully.');
+      return redirect()->back();  
     }
 }
  

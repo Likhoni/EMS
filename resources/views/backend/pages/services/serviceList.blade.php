@@ -29,7 +29,6 @@
     
    <td>
      <a class="btn btn-info" href="{{route('admin.service.edit',$data->id)}}">Edit</a>
-     <a class="btn btn-success" href="{{route('admin.service.view',$data->id)}}">View</a>
      <a class="btn btn-danger" href="{{route('admin.service.delete',$data->id)}}">Delete</a>
    </td>
  </tr>
