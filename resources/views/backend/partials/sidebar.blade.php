@@ -45,22 +45,9 @@
               </a>
             </li>
             <li class="nav-item">
-            <li class="nav-item">
-              <a class="nav-link d-flex align-items-center gap-2 active" aria-current="page" href="{{route('admin.payment.details')}}">
-                <svg class="bi"><use xlink:href="#house-fill"/></svg>
-                Payment
-              </a>
-            </li>
-            <li class="nav-item">
               <a class="nav-link d-flex align-items-center gap-2 active" aria-current="page" href="{{route('admin.appointment.details')}}">
                 <svg class="bi"><use xlink:href="#house-fill"/></svg>
                 Appointment
-              </a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link d-flex align-items-center gap-2 active" aria-current="page" href="#">
-                <svg class="bi"><use xlink:href="#house-fill"/></svg>
-                Reports
               </a>
             </li>
             <li class="nav-item">

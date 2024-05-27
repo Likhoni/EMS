@@ -22,7 +22,7 @@ class WebCustomerController extends Controller
                'name' => 'required',
                'email' => 'required',
                'address' => 'required',
-               'image' => 'required',
+               
                'phone' => 'required',
                'password' => 'required'       // |size:10000'
 

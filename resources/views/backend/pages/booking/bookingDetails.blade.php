@@ -31,7 +31,7 @@
 <br>
 
 
-<form action="{{route('admin.search')}}" method="get">
+<form action="{{route('admin.search.booking')}}" method="get">
   <div class="input-group mb-3">
     <input type="text" id="searchInput" class="form-control" placeholder="Search..." name="search">
     <div class="input-group-append">
@@ -51,6 +51,8 @@
       <th scope="col">Phone</th>
       <th scope="col">Email</th>
       <th scope="col">Amount</th>
+      <th scope="col">Transaction Id</th>
+      <th scope="col">Date</th>
       <th scope="col">Start Time</th>
       <th scope="col">End Time</th>
       <th scope="col">Status</th>
@@ -70,6 +72,8 @@
       <td>{{$data->phone_number}}</td>
       <td>{{$data->email}}</td>
       <td>{{$data->amount}} .BDT</td>
+      <td>{{$data->transaction_id}}</td>
+      <td>{{$data->date}}</td>
       <td>{{$data->start_time}}</td>
       <td>{{$data->end_time}}</td>
       <td>{{$data->status}}</td>

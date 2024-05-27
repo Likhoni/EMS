@@ -6,7 +6,7 @@
 			<div class="col-12">
 				<!-- Section Title -->
 				<div class="section-title white">
-					<h3><span class="alternate">Events</span></h3>
+					<h3><span class="alternate">Services</span></h3>
 
 				</div>
 			</div>
@@ -22,6 +22,10 @@
 						<div class="content text-left">
 							@foreach($packageDetails as $data)
 							<h6>{{$data->service->name}}</h6>
+							@endforeach
+							@foreach($packageDetails as $data)
+							<h6>Guest: {{$data->package->guest}}</h6>
+							@break
 							@endforeach
 						</div>
 						@foreach($packageDetails as $data)

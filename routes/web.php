@@ -36,8 +36,8 @@ Route::group(['prefix' => 'admin'], function ()           //prefix
 
       Route::group(['middleware' => 'auth'], function () {                       //auth
 
-            Route::get('/', [HomeController::class, 'admin']);
-            Route::get('/home/Page', [HomeController::class, 'homePage'])->name('admin.home.page');
+            // Route::get('/', [HomeController::class, 'admin']);
+            Route::get('/', [HomeController::class, 'homePage'])->name('admin.home.page');
 
             //  Events->
 
@@ -91,8 +91,8 @@ Route::group(['prefix' => 'admin'], function ()           //prefix
             Route::get('/booking/list', [BookingController::class, 'bookingList'])->name('admin.booking');
             Route::get('/booking/accept/{id}', [BookingController::class, 'accept'])->name('admin.accept.booking');
             Route::get('/booking/reject/{id}', [BookingController::class, 'reject'])->name('admin.reject.booking');
-            Route::get('/search', [BookingController::class, 'search'])->name('admin.search');
-
+            Route::get('/search/booking', [BookingController::class, 'search'])->name('admin.search.booking');
+            
 
 
             //Payments->
@@ -108,7 +108,7 @@ Route::group(['prefix' => 'admin'], function ()           //prefix
             Route::get('/appointment/details', [AppointmentController::class, 'appointmentDetails'])->name('admin.appointment.details');
             Route::get('/appointment/accept/{id}', [AppointmentController::class, 'accept'])->name('admin.accept.appointment');
             Route::get('/appointment/reject/{id}', [AppointmentController::class, 'reject'])->name('admin.reject.appointment');
-
+            Route::get('/search/appointment', [AppointmentController::class, 'search'])->name('admin.search.appointment');
 
             //Customers->
 
@@ -144,7 +144,7 @@ Route::group(['prefix' => 'admin'], function ()           //prefix
       Route::put('/update/profile', [WebProfileController::class, 'updateProfile'])->name('update.profile');
       Route::get('/delete/profile', [WebProfileController::class, 'deletetProfile'])->name('delete.profile');
       Route::get('/make-payment/{id}',[WebProfileController::class,'makePayment'])->name('make.payment');
-      Route::post('/success', [SslCommerzPaymentController::class, 'success']);
+
 
 
 
@@ -165,18 +165,19 @@ Route::group(['prefix' => 'admin'], function ()           //prefix
       Route::get('/booking/form/{id}', [WebBookingController::class, 'bookingForm'])->name('booking.form');
       Route::post('/booking/store', [WebBookingController::class, 'bookingStore'])->name('booking.store');
       Route::get('/cancel/booking/{id}', [WebBookingController::class, 'cancelBooking'])->name('cancel.booking');
-      
+      Route::get('/download-receipt/{id}', [WebBookingController::class, 'downloadReceipt'])->name('download.receipt');
 
       // SSLCOMMERZ Start
-      Route::get('/example1', [SslCommerzPaymentController::class, 'exampleEasyCheckout']);
-      Route::get('/example2', [SslCommerzPaymentController::class, 'exampleHostedCheckout']);
 
-      Route::post('/pay', [SslCommerzPaymentController::class, 'index'])->name('pay');
-      
+      Route::post('/success', [SslCommerzPaymentController::class, 'success']);
+
       Route::post('/fail', [SslCommerzPaymentController::class, 'fail']);
       Route::post('/cancel', [SslCommerzPaymentController::class, 'cancel']);
 
       Route::post('/ipn', [SslCommerzPaymentController::class, 'ipn']);
       //SSLCOMMERZ END
+
+
+      // Route::get('/demo', [HomeController::class, 'demo'])->name('demo');
 
 });

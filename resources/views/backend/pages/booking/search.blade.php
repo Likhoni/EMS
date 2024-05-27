@@ -36,7 +36,7 @@
     </div>
 </form>
 
-<h3>Search result for : "{{ request()->search}}" found {{$searchResult->count()}} Customers.</h3>
+<h3>Search result for : "{{ request()->search }}" found {{ $searchResult->count() }}</h3>
 
 @if($searchResult->count()>0)
 <table class="table">

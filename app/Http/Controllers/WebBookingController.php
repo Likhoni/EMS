@@ -1,11 +1,13 @@
 <?php
 
 namespace App\Http\Controllers;
-
+ 
+use Carbon\Carbon;
 use App\Models\Booking;
 use App\Models\Event;
 use App\Models\Package;
 use App\Models\Package_service;
+use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use Symfony\Contracts\Service\Attribute\Required;
@@ -31,8 +33,10 @@ class WebBookingController extends Controller
                     'name' => ' required',
                     'phone' => 'required',
                     'email' => 'required',
+                    'date'=>'required',
                     'start_time' => 'required',
                     'end_time' => 'required',       // |size:10000'
+                    'venue' => 'required',       // |size:10000'
                 ]
             );
 
@@ -52,8 +56,10 @@ class WebBookingController extends Controller
             'email' => $request->email,
             'transaction_id'=>date('YmdHis'),
             'amount' => $package->price,
+            'date'=>$request->date,
             'start_time' => $request->start_time,
             'end_time' => $request->end_time,
+            'venue' => $request->venue,
             'payment_status'=>'pending'
         ]);
 
@@ -72,4 +78,22 @@ class WebBookingController extends Controller
         notify()->success('Booking cancel successfully.');
         return redirect()->back();
     }
+
+    public function downloadReceipt($id)
+    {
+        $booking = Booking::with('package.event', 'customer')->findOrFail($id);
+    
+        if ($booking->payment_status !== 'Paid') {
+            return redirect()->back()->with('error', 'Payment not completed yet.');
+        }
+    
+        $currentDate = Carbon::now()->format('d M, Y');
+        // return view('frontend.pages.booking.receipt', compact('booking', 'currentDate'));
+        $pdf = PDF::loadView('frontend.pages.booking.receipt', compact('booking', 'currentDate'));
+    
+        return $pdf->download('receipt_'.$booking->transaction_id.'.pdf');
+    }
+    
+    
+
 }

@@ -93,6 +93,8 @@
 						<a class="btn-sm btn-danger" href="{{route('cancel.booking', $data->id)}}">Cancel Booking</a>
 						@elseif($data->status == 'Accept' && $data->payment_status != 'Paid' && $data->created_at->diffInDays(now()) <= 2)
 						<a class="btn-sm btn-primary" href="{{route('make.payment',$data->id)}}">Make Payment</a>
+						@elseif($data->payment_status == 'Paid')
+                        <a class="btn-sm btn-success" href="{{ route('download.receipt', $data->id) }}">Download Receipt</a>
 						@endif
 					</td>
 				</tr>

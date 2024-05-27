@@ -17,7 +17,8 @@ class WebProfileController extends Controller
     {
         $bookingDetails = Booking::with('package.event')->where('customer_id', auth('customerGuard')->user()->id)->get();
         // dd($bookingDetails);
-        $appointments = Appointment::all();
+        $appointments = Appointment::where('customer_id',auth('customerGuard')->user()->id)->get();
+        // dd($appointments);
         $profileData = Customer::find(auth('customerGuard')->user()->id);
         return view('frontend.pages.userProfile.profileView', compact('profileData', 'bookingDetails', 'appointments'));
     }
@@ -25,7 +26,7 @@ class WebProfileController extends Controller
     public function editProfile()
     {
         $profileData = Customer::find(auth('customerGuard')->user()->id);
-        return view('frontend.pages.userProfile.profileEdit', compact('profileData'));
+        return view('frontend.pages.userProfile.profileEdit', compact('profileData')); 
     }
 
     public function updateProfile(Request $request)
@@ -35,6 +36,7 @@ class WebProfileController extends Controller
         $checkValidation = Validator::make(
                 $request->all(),
                 [
+                    
                     'name' => 'required',
                     'email' => 'required',
                     'address' => 'required',
@@ -61,6 +63,7 @@ class WebProfileController extends Controller
         }
 
         $profileData->update([
+            
             'name' => $request->name,
             'email' => $request->email,
             'phone' => $request->phone,

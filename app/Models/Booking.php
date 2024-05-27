@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use App\Models\Event;
+use App\Models\Customer;
 use App\Models\Service;
 use App\Models\Package_service;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -21,6 +22,7 @@ class Booking extends Model
 
    //  public function service()
    //  {
+
    //     return $this->belongsTo(Service::class);
    //  }
 
@@ -42,4 +44,9 @@ class Booking extends Model
    {
       return $this->belongsTo(Package::class);
    }
+
+   // public function event()
+   // {
+   //    return $this->belongsTo(Event::class);
+   // }
 }

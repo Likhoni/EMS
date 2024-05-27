@@ -21,7 +21,6 @@
   @auth()
   <div class="col-md-1">
 <a href="" class="" style="color:white;">
-  <img src="{{url('/templateImages/icon/profileIcon.webp')}}" width="30" height="24" alt="">
   <a href="">{{auth()->user()->name}}</a>
 </a>
 </div>

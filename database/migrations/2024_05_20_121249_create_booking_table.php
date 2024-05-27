@@ -20,8 +20,10 @@ return new class extends Migration
             $table->string('email');
             $table->string('amount');
             $table->string('transaction_id');
+            $table->date('date');
             $table->time('start_time');
             $table->time('end_time');
+            $table->string('venue');
             $table->string('status')->default('Pending');
             $table->string('payment_status')->default('Pending');
             $table->timestamps();

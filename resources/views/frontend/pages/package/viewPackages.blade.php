@@ -15,7 +15,6 @@
 			<div class="col-lg-3 col-md-4 col-sm-6" style="margin-left: 200px;">
 				<div class="speaker-item">
 					<div class="image">
-						<img style="width: 300px;height:200px;" src="{{url('images/events/Marriage.jpg')}}" alt="speaker" class="img-fluid">
 						<div class=""></div></div>
 					    <div class="content text-center">
 						<h6>{{$data->name}}</h6>

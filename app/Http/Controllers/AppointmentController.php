@@ -21,35 +21,44 @@ class AppointmentController extends Controller
     }
 
     public function appointmentDetailsStore(Request $request)
-    {
-        $checkValidation = Validator::make($request->all(),
-        [
-            'user_name'=>'required',
-            'phone_number'=>'required',
-            'email'=>'required',
-            'date'=>'required',
-            'time'=>'required'
+{
+    $checkValidation = Validator::make($request->all(),
+    [
+        'user_name' => 'required',
+        'phone_number' => 'required',
+        'email' => 'required|email',
+        'date' => 'required|date',
+        'time' => 'required'
+    ]);
 
-
-        ]);
-
-        if($checkValidation->fails())
-        {
-            notify()->error("Something Went Wrong");
-            return redirect()->back();
-        }
-        Appointment::create
-        ([
-            'user_name'=>$request->user_name,
-            'phone_number'=>$request->phone_number,
-            'email'=>$request->email,
-            'date'=>$request->date,
-            'time'=>$request->time
-        ]);
-        notify()->success("Appointment Created Successfully");
-
-        return redirect()->route('view.profile');
+    if ($checkValidation->fails()) {
+        notify()->error("Something Went Wrong");
+        return redirect()->back()->withErrors($checkValidation)->withInput();
     }
+
+    // Check if the selected date and time combination already exists
+    $existingAppointment = Appointment::where('date', $request->date)
+                                      ->where('time', $request->time)
+                                      ->first();
+
+    if ($existingAppointment) {
+        notify()->error("The selected date and time are already booked. Please choose a different time.");
+        return redirect()->back()->withInput();
+    }
+
+    // Create the appointment
+    Appointment::create([
+        'customer_id'=> auth('customerGuard')->user()->id,
+        'user_name' => $request->user_name,
+        'phone_number' => $request->phone_number,
+        'email' => $request->email,
+        'date' => $request->date,
+        'time' => $request->time
+    ]);
+
+    notify()->success("Appointment Created Successfully");
+    return redirect()->route('view.profile');
+}
 
     public function accept($id)
     {
@@ -78,6 +87,19 @@ class AppointmentController extends Controller
 
       notify()->success('Appointment cancel successfully.');
       return redirect()->back();  
+    }
+
+    public function search(Request $request)
+    {
+        $searchResult = collect(); // Initialize an empty collection
+    
+        if ($request->search) {
+            // Search in the Booking table by name
+            $appointments = Appointment::where('date', 'LIKE', '%' . $request->search . '%')->get();
+            $searchResult = $searchResult->merge($appointments);
+        }
+    
+        return view('backend.pages.appointment.search', compact('searchResult'));
     }
 }
  

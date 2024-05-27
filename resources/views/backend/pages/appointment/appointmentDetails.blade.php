@@ -1,8 +1,43 @@
 @extends('backend.master')
+<style>
+  @media print {
+    #print {
+      display: none;
+    }
+
+    footer {
+      display: none !important;
+    }
+
+    .sidebar {
+      display: none !important;
+    }
+
+    .navbar {
+      display: none !important;
+    }
+
+    .action {
+      display: none !important;
+    }
+  }
+</style>
 
 @section('content')
 
 <h1>Appointment Details</h1>
+<button id="print" onclick="printlist()" class="btn btn-info">Print</button>
+<br>
+<br>
+
+<form action="{{route('admin.search.appointment')}}" method="get">
+  <div class="input-group mb-3">
+    <input type="text" id="searchInput" class="form-control" placeholder="Search..." name="search">
+    <div class="input-group-append">
+      <button style="color: black;" class="btn btn-outline-secondary" type="button">Search</button>
+    </div>
+  </div>
+</form>
 
 <table class="table">
   <thead>
@@ -14,6 +49,7 @@
       <th scope="col">Date</th>
       <th scope="col">Time</th>
       <th scope="col">Status</th>
+      <th class="action">Action</th>
      
     </tr>
   </thead>
@@ -27,7 +63,8 @@
       <td>{{$data->email}}</td>
       <td>{{$data->date}}</td>
       <td>{{$data->time}}</td>
-      <td>
+      <td>{{$data->status}}</td>
+      <td class="action">
         @if($data->status=='Pending')
         <a href="{{route('admin.accept.appointment', $data->id)}}" class="btn btn-success">Accept</a>
         <a href="{{route('admin.reject.appointment', $data->id)}}" class="btn btn-danger">Reject</a>
@@ -38,4 +75,9 @@
   </tbody> 
 </table>
 {{$appointments->links()}}
+<script>
+  function printlist() {
+    window.print();
+  }
+</script>
 @endsection

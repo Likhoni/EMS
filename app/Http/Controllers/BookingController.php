@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Controllers\Controller;
 use App\Models\Booking;
 use App\Models\Event;
+use App\Models\Package;
 use App\Models\Service;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
@@ -39,11 +40,24 @@ class BookingController extends Controller
 
     public function search(Request $request)
     {
-        if($request->search){
-            $searchResult=Booking::where('name', 'LIKE', '%' . $request->search . '%')->get(); 
-            // dd($searchResult);
+        $searchResult = collect(); // Initialize an empty collection
+    
+        if ($request->search) {
+            // Search in the Booking table by name
+            $bookings = Booking::where('date', 'LIKE', '%' . $request->search . '%')->get();
+            $searchResult = $searchResult->merge($bookings);
+    
+            // Search in the Event table by event_name
+            // $events = Event::where('name', 'LIKE', '%' . $request->search . '%')->with('packages.bookings')->get();
+    
+            // foreach ($events as $event) {
+            //     foreach ($event->packages as $package) {
+            //         $searchResult = $searchResult->merge($package->bookings);
+            //     }
+            // }
         }
+    
         return view('backend.pages.booking.search', compact('searchResult'));
     }
-
+    
 }
