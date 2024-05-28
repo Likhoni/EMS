@@ -7,7 +7,7 @@
 
 
 <label style="color:Black ;">Event Name</label>
-<input name="name" type="text" value="{{$events->name}}" class="form-control main" placeholder="Event Name" required>
+<input name="name" type="text" value="{{$events->name}}" class="form-control main" placeholder="Event Name" required readonly>
 
  <br>
 

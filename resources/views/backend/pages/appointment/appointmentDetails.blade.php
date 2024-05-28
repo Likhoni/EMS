@@ -54,10 +54,10 @@
     </tr>
   </thead>
   <tbody>
-  @foreach($appointments as $data)
+  @foreach($appointments as $key => $data)
  
     <tr>
-      <th scope="row">{{$data->id}}</th>
+      <th scope="row">{{$key+1}}</th>
       <td>{{$data->user_name}}</td>
       <td>{{$data->phone_number}}</td> 
       <td>{{$data->email}}</td>

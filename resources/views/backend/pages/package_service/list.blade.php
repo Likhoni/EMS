@@ -20,10 +20,10 @@
   </thead>
   <tbody>
 
-    @foreach($packages as $data)
+    @foreach($packages as $key => $data)
 
     <tr>
-      <th scope="row">{{$data->id}}</th>
+      <th scope="row">{{$key+1}}</th>
       <td>{{$data->event_name}}</td>
       <td>{{$data->package->name}}</td>
       <td>{{$data->service->name}}</td>

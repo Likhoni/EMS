@@ -22,10 +22,10 @@
   </thead> 
   <tbody>
 
-@foreach($packages as $data)
+@foreach($packages as $key => $data)
  
     <tr>
-      <th scope="row">{{$data->id}}</th>
+      <th scope="row">{{$key+1}}</th>
       <td>{{$data->name}}</td>
       <td>{{$data->event->name}}</td>
       <td>{{$data->price}}</td>

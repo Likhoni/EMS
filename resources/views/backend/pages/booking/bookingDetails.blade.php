@@ -49,8 +49,8 @@
       <th scope="col">Event</th>
       <th scope="col">Package</th>
       <th scope="col">Phone</th>
-      <th scope="col">Email</th>
-      <th scope="col">Amount</th>
+      <th scope="col">Email</th> 
+      <th scope="col">Venue</th>
       <th scope="col">Transaction Id</th>
       <th scope="col">Date</th>
       <th scope="col">Start Time</th>
@@ -62,16 +62,16 @@
   </thead>
 
   <tbody>
-    @foreach($bookings as $data)
+    @foreach($bookings as $key => $data)
 
     <tr>
-      <th scope="row">{{$data->id}}</th>
+      <th scope="row">{{$key+1}}</th>
       <td>{{$data->name}}</td>
       <td>{{$data->package->event->name}}</td>
       <td>{{$data->package->name}}</td>
       <td>{{$data->phone_number}}</td>
       <td>{{$data->email}}</td>
-      <td>{{$data->amount}} .BDT</td>
+      <td>{{$data->venue}}</td>
       <td>{{$data->transaction_id}}</td>
       <td>{{$data->date}}</td>
       <td>{{$data->start_time}}</td>
@@ -89,6 +89,7 @@
   </tbody>
 
 </table>
+
 {{$bookings->links()}}
 
 <script>

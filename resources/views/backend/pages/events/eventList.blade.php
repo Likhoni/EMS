@@ -17,10 +17,10 @@
   </thead> 
   <tbody>
 
-@foreach($events as $data)
+@foreach($events as $key => $data)
  
     <tr>
-      <th scope="row">{{$data->id}}</th>
+      <th scope="row">{{$key+1}}</th>
       <td>{{$data->name}}</td>
       <td><img style="width: 100px;height:100px" src="{{ url('images/events', $data->image) }}"
       alt="" srcset=""></td>

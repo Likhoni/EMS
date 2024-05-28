@@ -95,12 +95,12 @@ Route::group(['prefix' => 'admin'], function ()           //prefix
             
 
 
-            //Payments->
+            // //Payments->
 
-            Route::get('/payment/details', [PaymentController::class, 'paymentDetails'])->name('admin.payment.details');
+            // Route::get('/payment/details', [PaymentController::class, 'paymentDetails'])->name('admin.payment.details');
 
-            Route::get('/create/payment', [PaymentController::class, 'createPayment'])->name('create.payment');
-            Route::post('/payment/details/store', [PaymentController::class, 'paymentDetailsStore'])->name('admin.payment.details.store');
+            // Route::get('/create/payment', [PaymentController::class, 'createPayment'])->name('create.payment');
+            // Route::post('/payment/details/store', [PaymentController::class, 'paymentDetailsStore'])->name('admin.payment.details.store');
 
 
             //Appointments->
@@ -130,6 +130,14 @@ Route::group(['prefix' => 'admin'], function ()           //prefix
 
       Route::get('/sample/work', [WebSampleWorkController::class, 'sampleWork'])->name('sample.work');
 
+
+
+//packages      
+       Route::get('/all/events', [WebPackageController::class, 'allEvents'])->name('all.events');
+
+       Route::get('/all/packages/{id}', [WebPackageController::class, 'allPackages'])->name('all.packages');
+       Route::get('/all/packages/services/details/{id}', [WebPackageController::class, 'allPackagesDetails'])->name('all.packages.services.details');
+ 
 //Login-Logout 
       Route::get('/login', [WebCustomerController::class, 'login'])->name('login');
       Route::post('/do-login', [WebCustomerController::class, 'doLogin'])->name('do.login');
@@ -152,12 +160,6 @@ Route::group(['prefix' => 'admin'], function ()           //prefix
       Route::get('/create/appointment', [AppointmentController::class, 'createAppointment'])->name('create.appointment');
       Route::post('/appointment/details/store', [AppointmentController::class, 'appointmentDetailsStore'])->name('appointment.details.store');
 
-
-      //packages      
-      Route::get('/all/events', [WebPackageController::class, 'allEvents'])->name('all.events');
-
-      Route::get('/all/packages/{id}', [WebPackageController::class, 'allPackages'])->name('all.packages');
-      Route::get('/all/packages/services/details/{id}', [WebPackageController::class, 'allPackagesDetails'])->name('all.packages.services.details');
 
 
       //Booking

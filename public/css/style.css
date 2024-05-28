@@ -241,6 +241,12 @@ button:hover {
   background-position: center center;
 }
 
+.bg-speaker1 {
+  background: url(../images/1.avif) fixed no-repeat;
+  background-size: cover;
+  background-position: center center;
+}
+
 .bg-timer {
   background: url(../templateImage/background/timer-bg.jpg) no-repeat;
   background-size: cover;

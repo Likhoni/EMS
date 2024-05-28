@@ -6,19 +6,15 @@
 			<div class="col-12">
 				<!-- Section Title -->
 				<div class="section-title white">
-					<h3><span class="alternate">Services</span></h3>
+					<h3><span class="alternate">Services</span></h3> 
 
 				</div>
 			</div>
 		</div>
 		<div class="col">
 			<div class="row">
-				<div class="col-md-6">
+				<div class="col-md-12" style="padding-left: 200px; padding-right: 200px;">
 					<div class="speaker-item">
-						<div class="image">
-							<img style="width: 600px;height:200px;" src="{{url('images/events/Marriage.jpg')}}" alt="speaker" class="img-fluid">
-							<div class=""></div>
-						</div>
 						<div class="content text-left">
 							@foreach($packageDetails as $data)
 							<h6>{{$data->service->name}}</h6>

@@ -21,10 +21,10 @@
   </thead> 
   <tbody>
 
-@foreach($customerDetails as $data)
+@foreach($customerDetails as $key => $data)
  
     <tr>
-      <th scope="row">{{$data->id}}</th>
+      <th scope="row">{{$key+1}}</th>
       <td>{{$data->name}}</td>
       <td>{{$data->email}}</td>
       <td>{{$data->phone}}</td>

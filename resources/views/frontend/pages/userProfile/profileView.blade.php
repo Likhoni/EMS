@@ -60,6 +60,7 @@
 					<th scope="col">Transaction Id</th>
 					<th scope="col">Event</th>
 					<th scope="col">Package</th>
+					<th scope="col">Venue</th>
 					<th scope="col">Amount</th>
 					<th scope="col">Start_time</th>
 					<th scope="col">End_time</th>
@@ -76,6 +77,7 @@
 					<td>{{$data->transaction_id}}</td>
 					<td>{{$data->package->event->name}}</td>
 					<td>{{$data->package->name}}</td>
+					<td>{{$data->venue}}</td>
 					<td>{{$data->package->price}}</td>
 					<td>{{$data->start_time}}</td>
 					<td>{{$data->end_time}}</td>

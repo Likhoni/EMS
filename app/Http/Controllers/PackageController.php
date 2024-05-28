@@ -36,7 +36,7 @@ class PackageController extends Controller
                 'name' => 'required',
                 'event_id' => 'required',
                 'price' => 'required',
-                'guest' => 'required',
+                'guest' => 'required|integer|min:1', 
             ]
         );
 

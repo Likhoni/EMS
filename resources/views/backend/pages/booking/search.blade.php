@@ -27,7 +27,7 @@
 
 <h1>Booking Details</h1>
 
-<form action="{{route('admin.search')}}" method="get">
+<form action="{{route('admin.search.booking')}}" method="get">
     <div class="input-group mb-3">
         <input type="text" id="searchInput" class="form-control" placeholder="Search..." name="search">
         <div class="input-group-append">

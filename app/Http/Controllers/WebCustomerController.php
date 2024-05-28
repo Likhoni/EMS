@@ -82,12 +82,12 @@ class WebCustomerController extends Controller
          return redirect()->back();
       }
       if ($checklogin) {
-         notify()->success('Login successful.');
+         notify()->success('Login Successful.');
          return redirect()->route('home.page');
       }
 
 
-      notify()->success('Invalid Credentials.');
+      notify()->error('Invalid Credentials.');
       return redirect()->back();
    }
 

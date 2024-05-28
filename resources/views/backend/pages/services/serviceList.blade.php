@@ -18,10 +18,10 @@
   </thead>
   <tbody>
 
-  @foreach($services as $data)
+  @foreach($services as $key => $data)
  
  <tr>
-   <th scope="row">{{$data->id}}</th>
+   <th scope="row">{{$key+1}}</th>
    <td>{{$data->name}}</td>
    <td>{{$data->event->name}}</td>
    <!-- <td><img style="width: 100px;height:100px" src="{{ url('images/services', $data->image) }}"
