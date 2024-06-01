@@ -15,6 +15,7 @@ return new class extends Migration
             $table->id();
             $table->string('name');
             $table->string('price')->nullable();
+            $table->string('discount_price')->nullable();
             $table->string('guest')->nullable();
             $table->string('image')->nullable();
             $table->foreignId('event_id')->constrained('events')->onDelete('cascade');

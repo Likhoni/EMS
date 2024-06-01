@@ -8,9 +8,9 @@ use App\Http\Controllers\PackageServiceController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\ServiceController;
 use App\Http\Controllers\BookingController;
-use App\Http\Controllers\PaymentController;
-use App\Http\Controllers\AppointmentController;
 use App\Http\Controllers\FoodController;
+use App\Http\Controllers\AppointmentController;
+use App\Http\Controllers\DecorationController;
 use App\Http\Controllers\SslCommerzPaymentController;
 use App\Http\Controllers\WebHomeController;
 use App\Http\Controllers\WebAboutUsController;
@@ -39,7 +39,7 @@ Route::group(['prefix' => 'admin'], function ()           //prefix
             // Route::get('/', [HomeController::class, 'admin']);
             Route::get('/', [HomeController::class, 'homePage'])->name('admin.home.page');
 
-            //  Events->
+          //  Events->
 
             Route::get('/event/list', [EventController::class, 'eventList'])->name('admin.event.list');
 
@@ -49,6 +49,30 @@ Route::group(['prefix' => 'admin'], function ()           //prefix
             Route::get('/event/edit/{event_id}', [EventController::class, 'eventEdit'])->name('admin.event.edit');
             Route::put('/event/update/{event_id}', [EventController::class, 'eventUpdate'])->name('admin.event.update');
             Route::get('/event/delete/{event_id}', [EventController::class, 'eventDelete'])->name('admin.event.delete');
+
+
+            //  Foods->
+
+            Route::get('/food/list', [FoodController::class, 'foodList'])->name('admin.food.list');
+
+            Route::get('/create/food', [FoodController::class, 'createFood'])->name('admin.create.food');
+            Route::post('/food/store', [FoodController::class, 'foodStore'])->name('admin.food.store');
+
+            Route::get('/food/edit/{food_id}', [FoodController::class, 'foodEdit'])->name('admin.food.edit');
+            Route::put('/food/update/{food_id}', [FoodController::class, 'foodUpdate'])->name('admin.food.update');
+            Route::get('/food/delete/{food_id}', [FoodController::class, 'foodDelete'])->name('admin.food.delete');
+
+
+            //  Decorations->
+
+            Route::get('/decoration/list', [DecorationController::class, 'decorationList'])->name('admin.decoration.list');
+
+            Route::get('/create/decoration', [DecorationController::class, 'createDecoration'])->name('admin.create.decoration');
+            Route::post('/decoration/store', [DecorationController::class, 'decorationStore'])->name('admin.decoration.store');
+
+            Route::get('/decoration/edit/{decoration_id}', [DecorationController::class, 'decorationEdit'])->name('admin.decoration.edit');
+            Route::put('/decoration/update/{decoration_id}', [DecorationController::class, 'decorationUpdate'])->name('admin.decoration.update');
+            Route::get('/decoration/delete/{decoration_id}', [DecorationController::class, 'decorationDelete'])->name('admin.decoration.delete');
 
             //Services->
 

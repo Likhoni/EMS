@@ -1,15 +1,6 @@
 <!doctype html>
 <html lang="en">
-  <head>
-	
-  	<title>Login 10</title>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-
-	<link href="https://fonts.googleapis.com/css?family=Lato:300,400,700&display=swap" rel="stylesheet">
-
-	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
-	
+  <head>	
 	<link rel="stylesheet" href="{{url('csslogin/style.css')}}">
 
 	</head>
@@ -33,7 +24,6 @@
 		      		</div>
 	            <div class="form-group">
 	              <input name="password" style="background:maroon;"  id="password-field" type="password" class="form-control" placeholder="Password" required>
-	              <span toggle="#password-field" class="fa fa-fw fa-eye field-icon toggle-password"></span>
 	            </div>
 	            <div class="form-group">
 	            	<button type="submit" style=" width:50%; " class="form-control btn btn-primary submit px-3">Sign In</button>
@@ -50,11 +40,6 @@
 								</div>
 	            </div>
 	          </form>
-	          <!-- <p class="w-100 text-center">&mdash; Or Sign In With &mdash;</p>
-	          <div class="social d-flex text-center">
-	          	<a href="#" class="px-2 py-2 mr-md-1 rounded"><span class="ion-logo-facebook mr-2"></span> Facebook</a>
-	          	<a href="#" class="px-2 py-2 ml-md-1 rounded"><span class="ion-logo-twitter mr-2"></span> Twitter</a>
-	          </div> -->
 		      </div>
 				</div>
 			</div>

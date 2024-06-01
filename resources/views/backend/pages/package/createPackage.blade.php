@@ -29,6 +29,10 @@
     <label for="">Package Price</label>
     <input required name="price" type="number" class="form-control" id="" placeholder="Enter Package Price">
 </div>
+<div class="form-group">
+    <label for="">Discount Price</label>
+    <input required name="discount_price" type="number" class="form-control" id="" placeholder="Enter Discount Price">
+</div>
   
  <br>
  <div class="form-group">

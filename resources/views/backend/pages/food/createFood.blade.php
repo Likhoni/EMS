@@ -11,17 +11,22 @@
     <input required name="name" type="text" class="form-control" id="" placeholder="Enter Food name">
   </div>
 
+  <br>
+
+<div class="form-group">
+  <label for="">Event</label>
+  <select class="form-control" name="event_id" id="">
+  <option>select event</option>
+    @foreach ($events as $data)
+   <option value ="{{$data->id}}">{{$data->name}}</option>
+   @endforeach 
+   </select>
+</div>
 
   <br>
   <div class="form-group">
-    <label for="">Description</label>
-    <textarea name="description" id="" class="form-control" placeholder="Enter Description" ></textarea>
-  </div>
-  
- <br>
-  <div class="form-group">
-    <label for="">Upload Image</label>
-    <input name="image" type="file" class="form-control" id="" placeholder="Upload Image">
+    <label for="">Food Price</label>
+    <input required name="price" type="number" class="form-control" id="" placeholder="Enter Food Price">
   </div>
   <br>
   <button type="submit" class="btn btn-primary">Submit</button>
