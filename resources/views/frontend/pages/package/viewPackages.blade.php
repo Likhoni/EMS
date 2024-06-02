@@ -17,8 +17,7 @@
 					<div class="image">
 						<div class=""></div></div>
 					    <div class="content text-center">
-						<h6>{{$data->name}}</h6>
-					    <h4>{{$data->price}}.BDT</h4>
+						<h6 style="font-size: 50px;">{{$data->name}}</h6>
 						<a style="color: black;" href="{{route('all.packages.services.details', $data->id)}}">Details</a>
 						
 					</div>

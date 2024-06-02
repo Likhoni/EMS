@@ -35,9 +35,7 @@ class PackageController extends Controller
             [
                 'name' => 'required',
                 'event_id' => 'required',
-                'price' => 'required',
-                'discount_price' => 'required',
-                'guest' => 'required|integer|min:1', 
+
             ]
         );
 
@@ -49,8 +47,6 @@ class PackageController extends Controller
         Package::create
         ([
             'name'=>$request->name,
-            'price'=>$request->price,
-            'guest'=>$request->guest,
             'event_id'=>$request->event_id,
         ]);
 
@@ -76,8 +72,6 @@ class PackageController extends Controller
             [
                 'name' => 'required',
                 'event_id' => 'required',
-                'price' => 'required',
-                'guest' => 'required',
             ]
         );
         // dd($request->all()); 
@@ -90,8 +84,6 @@ class PackageController extends Controller
 
         $package->update([
             'name'=>$request->name,
-            'price'=>$request->price,
-            'guest'=>$request->guest,
             'event_id'=>$request->event_id,
 
             ]);

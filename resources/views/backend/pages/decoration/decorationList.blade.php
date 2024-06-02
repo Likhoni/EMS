@@ -24,7 +24,7 @@
       <th scope="row">{{$key+1}}</th>
       <td>{{$data->name}}</td>
       <td>{{$data->event->name}}</td>
-      <td>BDT.{{$data->price}} /-per person</td>
+      <td>BDT.{{$data->price}}</td>
      
       <td> 
         <a class="btn btn-info" href="{{route('admin.decoration.edit' , $data->id)}}">Edit</a>
@@ -35,5 +35,4 @@
   </tbody>
 </table>
 {{$decorations->links()}}
-
 @endsection    

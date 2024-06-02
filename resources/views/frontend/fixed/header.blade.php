@@ -15,7 +15,9 @@
         <li class="nav-item">
           <a class="nav-link" href="{{route('all.events')}}">Packages<span></span></a>
         </li>
-
+        <li class="nav-item">
+          <a class="nav-link" href="">Customize Booking<span></span></a>
+        </li>
         <li class="nav-item">
           <a class="nav-link" href="{{route('sample.work')}}">Sample Work<span></span></a>
         </li>

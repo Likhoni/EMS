@@ -18,12 +18,13 @@ return new class extends Migration
             $table->string('name');   
             $table->string('phone_number');   
             $table->string('email');
-            $table->string('amount');
             $table->string('transaction_id');
             $table->date('date');
             $table->time('start_time');
             $table->time('end_time');
             $table->string('venue');
+            $table->integer('guest');
+            $table->integer('total_amount');
             $table->string('status')->default('Pending');
             $table->string('payment_status')->default('Pending');
             $table->timestamps();

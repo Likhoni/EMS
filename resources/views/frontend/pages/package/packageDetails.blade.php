@@ -17,11 +17,8 @@
 					<div class="speaker-item">
 						<div class="content text-left">
 							@foreach($packageDetails as $data)
-							<h6>{{$data->service->name}}</h6>
-							@endforeach
-							@foreach($packageDetails as $data)
-							<h6>Guest: {{$data->package->guest}}</h6>
-							@break
+							<h6>Food: {{$data->food->name}}</h6>
+							<h6>Decoration: {{$data->decoration->name}}</h6>
 							@endforeach
 						</div>
 						@foreach($packageDetails as $data)

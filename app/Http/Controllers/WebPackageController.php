@@ -6,7 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Event;
 use App\Models\Service;
 use App\Models\Package;
-use App\Models\Package_service;
+use App\Models\PackageService;
 use Illuminate\Http\Request;
 
 class WebPackageController extends Controller
@@ -28,7 +28,7 @@ class WebPackageController extends Controller
     public function allPackagesDetails($id)
     {
         $packages=Package::all();
-        $packageDetails=Package_service::where('package_id', $id)->get();
+        $packageDetails=PackageService::where('package_id', $id)->get();
         // dd($packageDetails);
         return view('frontend.pages.package.packageDetails',compact('packageDetails','packages'));
     }

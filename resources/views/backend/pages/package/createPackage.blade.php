@@ -22,24 +22,8 @@
      @endforeach 
      </select>
   </div>
-
  <br>
 
-  <div class="form-group">
-    <label for="">Package Price</label>
-    <input required name="price" type="number" class="form-control" id="" placeholder="Enter Package Price">
-</div>
-<div class="form-group">
-    <label for="">Discount Price</label>
-    <input required name="discount_price" type="number" class="form-control" id="" placeholder="Enter Discount Price">
-</div>
-  
- <br>
- <div class="form-group">
-    <label for="">Guest</label>
-    <input required name="guest" type="number" class="form-control" id="" placeholder="Number of Guest">
-  </div>
-  <br>
   
   <button type="submit" class="btn btn-primary">Submit</button>
 </form>

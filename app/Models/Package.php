@@ -21,10 +21,7 @@ class Package extends Model
    //  {
    //     return $this->hasMany(Service::class);
    //  }
-   public function event()
-    {
-        return $this->belongsTo(Event::class);
-    }
+ 
 
     public function services()
     {
@@ -34,5 +31,15 @@ class Package extends Model
     public function bookings()
     {
         return $this->hasMany(Booking::class);
+    }
+
+    public function packageServices()
+    {
+        return $this->hasMany(PackageService::class, 'package_id');
+    }
+
+    public function event()
+    {
+        return $this->belongsTo(Event::class, 'event_id');
     }
 }

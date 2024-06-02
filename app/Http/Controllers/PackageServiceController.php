@@ -2,9 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Decoration;
 use App\Models\Event;
+use App\Models\Food;
 use App\Models\Package;
-use App\Models\Package_service;
+use App\Models\PackageService;
 use App\Models\Service;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
@@ -13,37 +15,38 @@ class PackageServiceController extends Controller
 {
     public function packageServiceList()
     {
-        // $packages_event=Package::with('event')->get();
-        $packages=Package_service::with('package')->get();
-        $packages=Package_service::paginate(4);
+        $packages=PackageService::with('package')->get();
+        $packages=PackageService::paginate(4);
         //    dd($packages);
         return view('backend.pages.package_service.list',compact('packages'));
     }
     
     public function packageServiceEvent()
     {
-        $events=Event::all();
-        
-        return view('backend.pages.package_service.events',compact('events'));
-        
+        $packages =Event::all();
+        return view('backend.pages.package_service.events', compact('packages'));
     }
     
     public function packageServiceCreate($id)
     {
-        $events=Event::find($id);
+        $events=Event::findOrFail($id);
         $packages=Package::where('event_id', $id)->get();
-        $services=Service::where('event_id', $id)->get();
-        return view('backend.pages.package_service.create',compact('packages','services','events'));
+        $foods=Food::where('event_id', $id)->get();
+        $decorations=Decoration::where('event_id', $id)->get();
+        return view('backend.pages.package_service.create',compact('packages','foods','events','decorations'));
     }
     public function packageServiceStore(Request $request)
     {
+        
+
         $checkValidation = Validator::make
         (
             $request->all(),
             [
-                'name' => 'required',
+                
                 'package_id' => 'required',
-                'service_id' => 'required',
+                'food_id' => 'required',
+                'decoration_id' => 'required',
                 
             ]
         );
@@ -55,12 +58,15 @@ class PackageServiceController extends Controller
         }
        
         // dd($request->all());
-        foreach ($request->service_id as $serviceId) {
-            Package_service::create([
-                'package_id' => $request->package_id,
-                'event_name'=>$request->name,
-                'service_id' => $serviceId,
-            ]);
+        foreach ($request->food_id as $foodId) {
+            foreach ($request->decoration_id as $decorationId) {
+                PackageService::create([
+                    'package_id' => $request->package_id,
+                    'event_id' => request()->event_id,
+                    'food_id' => $foodId,
+                    'decoration_id' => $decorationId,
+                ]);
+            }
         }
         
         notify()->success('Package Service Created Successfully.');
@@ -69,9 +75,10 @@ class PackageServiceController extends Controller
 
     public function packageServiceDelete($id)
     {
-        $package = Package_service::find($id);
+        $package = PackageService::find($id);
         $package->delete();
         notify()->success('Package Service Deleted Successfully.');
         return redirect()->back();
     }
 }
+

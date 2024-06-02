@@ -12,9 +12,8 @@
       <th scope="col">ID</th>
       <th scope="col">Event</th>
       <th scope="col">Package</th>
-      <th scope="col">Service</th>
-
-
+      <th scope="col">Food</th>
+      <th scope="col">Decoration</th>
       <th>Action</th>
     </tr>
   </thead>
@@ -24,9 +23,10 @@
 
     <tr>
       <th scope="row">{{$key+1}}</th>
-      <td>{{$data->event_name}}</td>
+      <td>{{$data->event->name}}</td>
       <td>{{$data->package->name}}</td>
-      <td>{{$data->service->name}}</td>
+      <td>{{$data->food->name}}</td>
+      <td>{{$data->decoration->name}}</td>
 
 
       <!-- <td><img style="width: 100px;height:100px" src="{{ url('images/events', $data->image) }}"

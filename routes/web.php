@@ -51,6 +51,20 @@ Route::group(['prefix' => 'admin'], function ()           //prefix
             Route::get('/event/delete/{event_id}', [EventController::class, 'eventDelete'])->name('admin.event.delete');
 
 
+            //Packages
+
+
+            Route::get('/package/list', [PackageController::class, 'packageList'])->name('admin.package.list');
+
+            Route::get('/create/package', [PackageController::class, 'createPackage'])->name('admin.create.package');
+            Route::post('/package/store', [PackageController::class, 'packageStore'])->name('admin.package.store');
+
+            Route::get('/package/edit/{package_id}', [PackageController::class, 'packageEdit'])->name('admin.package.edit');
+            Route::put('/package/update/{package_id}', [PackageController::class, 'packageUpdate'])->name('admin.package.update');
+            Route::get('/package/delete/{package_id}', [PackageController::class, 'packageDelete'])->name('admin.package.delete');
+
+
+            
             //  Foods->
 
             Route::get('/food/list', [FoodController::class, 'foodList'])->name('admin.food.list');
@@ -74,29 +88,16 @@ Route::group(['prefix' => 'admin'], function ()           //prefix
             Route::put('/decoration/update/{decoration_id}', [DecorationController::class, 'decorationUpdate'])->name('admin.decoration.update');
             Route::get('/decoration/delete/{decoration_id}', [DecorationController::class, 'decorationDelete'])->name('admin.decoration.delete');
 
-            //Services->
+            // //Services->
 
-            Route::get('/service/list', [ServiceController::class, 'servicelist'])->name('admin.service.list');
+            // Route::get('/service/list', [ServiceController::class, 'servicelist'])->name('admin.service.list');
 
-            Route::get('/create/service', [ServiceController::class, 'createService'])->name('admin.create.service');
-            Route::post('/service/store', [ServiceController::class, 'serviceStore'])->name('admin.service.store');
+            // Route::get('/create/service', [ServiceController::class, 'createService'])->name('admin.create.service');
+            // Route::post('/service/store', [ServiceController::class, 'serviceStore'])->name('admin.service.store');
 
-            Route::get('/service/edit/{service_id}', [ServiceController::class, 'serviceEdit'])->name('admin.service.edit');
-            Route::put('/service/update/{service_id}', [ServiceController::class, 'serviceUpdate'])->name('admin.service.update');
-            Route::get('/service/delete/{service_id}', [ServiceController::class, 'serviceDelete'])->name('admin.service.delete');
-
-
-            //Packages
-
-
-            Route::get('/package/list', [PackageController::class, 'packageList'])->name('admin.package.list');
-
-            Route::get('/create/package', [PackageController::class, 'createPackage'])->name('admin.create.package');
-            Route::post('/package/store', [PackageController::class, 'packageStore'])->name('admin.package.store');
-
-            Route::get('/package/edit/{package_id}', [PackageController::class, 'packageEdit'])->name('admin.package.edit');
-            Route::put('/package/update/{package_id}', [PackageController::class, 'packageUpdate'])->name('admin.package.update');
-            Route::get('/package/delete/{package_id}', [PackageController::class, 'packageDelete'])->name('admin.package.delete');
+            // Route::get('/service/edit/{service_id}', [ServiceController::class, 'serviceEdit'])->name('admin.service.edit');
+            // Route::put('/service/update/{service_id}', [ServiceController::class, 'serviceUpdate'])->name('admin.service.update');
+            // Route::get('/service/delete/{service_id}', [ServiceController::class, 'serviceDelete'])->name('admin.service.delete');
 
 
             //Packages service       
@@ -161,6 +162,13 @@ Route::group(['prefix' => 'admin'], function ()           //prefix
 
        Route::get('/all/packages/{id}', [WebPackageController::class, 'allPackages'])->name('all.packages');
        Route::get('/all/packages/services/details/{id}', [WebPackageController::class, 'allPackagesDetails'])->name('all.packages.services.details');
+
+//  //Customize     
+//        Route::get('/all/events', [WebPackageController::class, 'allEvents'])->name('all.events');
+
+//        Route::get('/all/packages/{id}', [WebPackageController::class, 'allPackages'])->name('all.packages');
+//        Route::get('/all/packages/services/details/{id}', [WebPackageController::class, 'allPackagesDetails'])->name('all.packages.services.details');
+
  
 //Login-Logout 
       Route::get('/login', [WebCustomerController::class, 'login'])->name('login');

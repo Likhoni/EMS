@@ -26,4 +26,6 @@ class Event extends Model
     {
         return $this->hasMany(Service::class);
     }
+
+
 }

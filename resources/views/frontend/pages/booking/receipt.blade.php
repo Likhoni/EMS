@@ -137,7 +137,7 @@
                             <tr>
                                 <td><strong>{{ $booking->package->event->name }}</strong></td>
                                 <td><strong>{{ $booking->package->name }}</strong></td>
-                                <td><strong>BDT. {{ $booking->package->price }}</strong></td>
+                                <td><strong>BDT. {{ $booking->total_amount}}</strong></td>
                                 <td><strong>{{ $booking->date }}</strong></td>
                                 <td><strong>{{ $booking->start_time }}</strong></td>
                                 <td><strong>{{ $booking->end_time }}</strong></td>

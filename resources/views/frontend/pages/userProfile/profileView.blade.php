@@ -78,7 +78,7 @@
 					<td>{{$data->package->event->name}}</td>
 					<td>{{$data->package->name}}</td>
 					<td>{{$data->venue}}</td>
-					<td>{{$data->package->price}}</td>
+					<td>{{$data->total_amount}}</td>
 					<td>{{$data->start_time}}</td>
 					<td>{{$data->end_time}}</td>
 					<td>

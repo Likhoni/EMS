@@ -25,18 +25,6 @@
   </div>
 
  <br>
-
-  <div class="form-group">
-    <label for="">Package Price</label>
-    <input required name="price" type="number" class="form-control" id="" value="{{$package->price}}" placeholder="Enter Package Price">
-</div>
-  
- <br>
- <div class="form-group">
-    <label for="">Guest</label>
-    <input required name="guest" type="number" class="form-control" id="" value="{{$package->guest}}" placeholder="Number of Guest">
-  </div>
-  <br>
   
   <button type="submit" class="btn btn-primary">Submit</button>
 </form>
