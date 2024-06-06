@@ -20,6 +20,29 @@ class PackageServiceController extends Controller
         //    dd($packages);
         return view('backend.pages.package_service.list',compact('packages'));
     }
+
+    public function packageServiceSearch(Request $request)
+{
+    $query = PackageService::query();
+
+    if ($request->has('search')) {
+        $search = $request->input('search');
+        $query->whereHas('event', function($q) use ($search) {
+            $q->where('name', 'LIKE', '%' . $search . '%');
+        })->orWhereHas('package', function($q) use ($search) {
+            $q->where('name', 'LIKE', '%' . $search . '%');
+        })->orWhereHas('food', function($q) use ($search) {
+            $q->where('name', 'LIKE', '%' . $search . '%');
+        })->orWhereHas('decoration', function($q) use ($search) {
+            $q->where('name', 'LIKE', '%' . $search . '%');
+        });
+    }
+
+    $packages = $query->paginate(4);
+
+    return view('backend.pages.package_service.search', compact('packages'));
+}
+
     
     public function packageServiceEvent()
     {
@@ -37,8 +60,6 @@ class PackageServiceController extends Controller
     }
     public function packageServiceStore(Request $request)
     {
-        
-
         $checkValidation = Validator::make
         (
             $request->all(),

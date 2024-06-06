@@ -2,13 +2,9 @@
 
 @section('content')
 
-<h1>Package Services </h1>
+<h1>Package Services</h1>
 
-<a href="{{route('admin.package.service.event')}}" class="btn btn-success">Select Event</a>
-
-<br>
-<br>
-
+<!-- Search form -->
 <form action="{{ route('admin.package.service.search') }}" method="GET" class="mb-3">
     <div class="input-group">
         <input type="text" name="search" class="form-control" placeholder="" value="{{ request()->search }}">
@@ -31,18 +27,14 @@
   </thead>
   <tbody>
 
-    @foreach($packages as $key => $data)
+    @foreach($packages as $data)
 
     <tr>
-      <th scope="row">{{$key+1}}</th>
+      <th scope="row">{{$data->id}}</th>
       <td>{{$data->event->name}}</td>
       <td>{{$data->package->name}}</td>
       <td>{{$data->food->name}}</td>
       <td>{{$data->decoration->name}}</td>
-
-
-      <!-- <td><img style="width: 100px;height:100px" src="{{ url('images/events', $data->image) }}"
-      alt="" srcset=""></td> -->
       <td>
          <a class="btn btn-danger" href="{{route('admin.package.service.delete',$data->id)}}">Delete</a>
       </td>
@@ -51,5 +43,5 @@
     @endforeach
   </tbody>
 </table>
-{{$packages->links()}}
+{{$packages->appends(request()->query())->links()}}
 @endsection

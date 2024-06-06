@@ -14,23 +14,39 @@ class PackageController extends Controller
 {
     public function packageList()
     {
-       
-        $packages=Package::all();
+
+        $packages = Package::all();
         $packages = Package::paginate(4);
-        return view('backend.pages.package.packageList',compact('packages'));
-        
+        return view('backend.pages.package.packageList', compact('packages'));
     }
+
+    public function packageSearch(Request $request)
+    {
+        $query = Package::query();
+
+        if ($request->has('search')) {
+            $search = $request->search;
+            $query->where('name', 'LIKE', '%' . $search . '%')
+                  ->orWhereHas('event', function ($q) use ($search) {
+                      $q->where('name', 'LIKE', '%' . $search . '%');
+                  });
+        }
+
+        $packages = $query->paginate(4);
+
+        return view('backend.pages.package.packageEventSearch', compact('packages'));
+    }
+
 
     public function createPackage()
     {
-        $events=Event::all();
-        return view('backend.pages.package.createPackage',compact('events'));
+        $events = Event::all();
+        return view('backend.pages.package.createPackage', compact('events'));
     }
 
     public function packageStore(Request $request)
     {
-        $checkValidation = Validator::make
-        (
+        $checkValidation = Validator::make(
             $request->all(),
             [
                 'name' => 'required',
@@ -44,10 +60,9 @@ class PackageController extends Controller
             // notify()->error($checkValidation->getMessageBag());
             return redirect()->back();
         }
-        Package::create
-        ([
-            'name'=>$request->name,
-            'event_id'=>$request->event_id,
+        Package::create([
+            'name' => $request->name,
+            'event_id' => $request->event_id,
         ]);
 
         notify()->success('Package Created Successfully.');
@@ -56,9 +71,9 @@ class PackageController extends Controller
 
     public function packageEdit($package_id)
     {
-        $events= Event::all();
+        $events = Event::all();
         $package = Package::find($package_id);
-        return view('backend.pages.package.editpackage', compact('package','events'));
+        return view('backend.pages.package.editpackage', compact('package', 'events'));
     }
 
     public function packageUpdate(Request $request, $id)
@@ -66,8 +81,7 @@ class PackageController extends Controller
         // $events=Event::find($id);
         $package = Package::find($id);
 
-        $checkValidation = Validator::make
-        (
+        $checkValidation = Validator::make(
             $request->all(),
             [
                 'name' => 'required',
@@ -83,10 +97,10 @@ class PackageController extends Controller
         }
 
         $package->update([
-            'name'=>$request->name,
-            'event_id'=>$request->event_id,
+            'name' => $request->name,
+            'event_id' => $request->event_id,
 
-            ]);
+        ]);
 
         notify()->success('Package Updated Successfully.');
 
@@ -100,6 +114,4 @@ class PackageController extends Controller
         notify()->success('Package Deleted Successfully.');
         return redirect()->back();
     }
-
-
 }

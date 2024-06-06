@@ -38,26 +38,29 @@ class BookingController extends Controller
         return redirect()->back();
     }
 
+    public function markEventDone($id) {
+        $booking = Booking::findOrFail($id);
+        $booking->status = 'Event Done';
+        $booking->save();
+    
+        return redirect()->back()->with('success', 'Booking marked as Event Done');
+    }
+
     public function search(Request $request)
     {
         $searchResult = collect(); // Initialize an empty collection
     
-        if ($request->search) {
-            // Search in the Booking table by name
-            $bookings = Booking::where('date', 'LIKE', '%' . $request->search . '%')->get();
-            $searchResult = $searchResult->merge($bookings);
+        $query = Booking::query();
     
-            // Search in the Event table by event_name
-            // $events = Event::where('name', 'LIKE', '%' . $request->search . '%')->with('packages.bookings')->get();
-    
-            // foreach ($events as $event) {
-            //     foreach ($event->packages as $package) {
-            //         $searchResult = $searchResult->merge($package->bookings);
-            //     }
-            // }
+        if ($request->start_date && $request->end_date) {
+            $query->whereBetween('date', [$request->start_date, $request->end_date]);
         }
+    
+        $searchResult = $query->get();
     
         return view('backend.pages.booking.search', compact('searchResult'));
     }
+
+    
     
 }

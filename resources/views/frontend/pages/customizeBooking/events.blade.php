@@ -6,8 +6,7 @@
 			<div class="col-12"> 
 				<!-- Section Title -->
 				<div class="section-title white">
-					<h3><span class="alternate" style="color: white;"><strong>Events</strong></span></h3>
-					
+					<h3><span class="alternate" style="color: white;"><strong>Events</strong></span></h3>					
 				</div>
 			</div> 
 		</div>
@@ -19,13 +18,13 @@
 						<img style="width: 300px;height:200px;" src="{{url('images/events/',$data->image)}}" alt="speaker" class="img-fluid">
 						<div class=""></div></div>
 					    <div class="content text-center">
-						<h5><a href="{{route('all.packages',$data->id)}}">{{$data->name}}</a></h5>
+						<h5>{{$data->name}}</h5>
+                        <a href="" class="btn btn-success">Book Now</a>
 					</div>
 				</div>
 			</div>
-            @endforeach
-			
+            @endforeach			
 		</div>
 	</div>
 </section>
-@endsection
+@endsection  

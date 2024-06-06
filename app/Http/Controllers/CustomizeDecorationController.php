@@ -2,23 +2,23 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\CustomizeDecoration;
 use App\Models\Event;
-use App\Models\Food;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Validator; 
+use Illuminate\Support\Facades\Validator;
 
-class FoodController extends Controller
+class CustomizeDecorationController extends Controller
 {
-    public function foodList()
+    public function customizeDecorationList()
     {
-        $foods = Food::with('event')->get();
-        $foods = Food::paginate(4);
-        return view('backend.pages.food.foodList', compact('foods'));
+        $customizeDecorations = CustomizeDecoration::with('event')->get();
+        // $customizeDecorations = CustomizeDecoration::paginate(4);
+        return view('backend.pages.customizeDecoration.customizeDecorationList', compact('customizeDecorations'));             
     }
 
-    public function foodSearch(Request $request)
+    public function customizeDecorationSearch(Request $request)
     {
-        $query = Food::query();
+        $query = CustomizeDecoration::query();
 
         if ($request->has('search')) {
             $search = $request->search;
@@ -29,18 +29,19 @@ class FoodController extends Controller
                   });
         }
 
-        $foods = $query->paginate(4);
+        $decorations = $query->paginate(4);
 
-        return view('backend.pages.food.foodSearch', compact('foods'));
+        return view('backend.pages.customizeDecoration.customizeDecorationSearch', compact('decorations'));
     }
 
-    public function createFood()
+
+    public function createCustomizeDecoration()
     {
         $events = Event::all();
-        return view('backend.pages.food.createFood',compact('events'));
+        return view('backend.pages.customizeDecoration.createCustomizeDecoration',compact('events'));
     }
 
-    public function foodStore(Request $request)
+    public function customizeDecorationStore(Request $request)
     {
         // $checkValidation=$request->except('_token');
         // dd($request->all());
@@ -61,28 +62,29 @@ class FoodController extends Controller
             return redirect()->back();
         }
 
-        Food::create([
+        CustomizeDecoration::create([
                 'name' => $request->name,
                 'event_id' => $request->event_id,
                 'price' => $request->price,
                 
             ]);
 
-        notify()->success('Food Created Successfully.');
+        notify()->success('Customize Decoration Created Successfully.');
 
-        return redirect()->route('admin.food.list');
+        return redirect()->route('admin.customize.decoration.list');
     }
 
-    public function foodEdit(Request $request, $food_id)
+    public function customizeDecorationEdit(Request $request, $decoration_id)
     {
         $events= Event::all();
-        $foods = Food::find($food_id);
-        return view('backend.pages.food.foodEditForm', compact('foods','events'));
+        $decorations = CustomizeDecoration::find($decoration_id);
+        return view('backend.pages.customizeDecoration.customizeDecorationEditForm', compact('decorations','events'));
+
     }
 
-    public function  foodUpdate(Request $request, $food_id)
+    public function  customizeDecorationUpdate(Request $request, $decoration_id)
     {
-        $foods = Food::find($food_id);
+        $decorations = CustomizeDecoration::find($decoration_id);
 
         $checkValidation = Validator::make
         (
@@ -100,23 +102,22 @@ class FoodController extends Controller
             return redirect()->back();
         }
 
-        $foods->update([
+        $decorations->update([
                 'name' => $request->name,
                 'event_id' => $request->event_id,
                 'price' => $request->price
             ]);
-        notify()->success('Food Updated Successfully.');
+        notify()->success('Customize Decoration Updated Successfully.');
 
-        return redirect()->route('admin.food.list');
+        return redirect()->route('admin.customize.decoration.list');
     }
 
-    public function foodDelete($food_id)
+    public function customizeDecorationDelete($decoration_id)
     {
-        $foods = Food::find($food_id);
+        $foods = CustomizeDecoration::find($decoration_id);
         $foods->delete();
-        notify()->success('Food Deleted Successfully.');
+        notify()->success('Customize Decoration Deleted Successfully.');
         return redirect()->back();
         
     }
 }
- 

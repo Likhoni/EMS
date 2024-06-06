@@ -17,6 +17,20 @@ class EventController extends Controller
         return view('backend.pages.events.eventList', compact('events'));
     }
 
+    public function eventSearch(Request $request)
+{
+    $query = Event::query();
+
+    if ($request->has('search')) {
+        $query->where('name', 'LIKE', '%' . $request->search . '%');
+    }
+
+    $events = $query->paginate(4);
+
+    return view('backend.pages.events.search', compact('events'));
+}
+
+
     public function createEvent()
     {
         return view('backend.pages.events.createEvent');

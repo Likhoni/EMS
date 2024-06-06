@@ -2,23 +2,23 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\CustomizeFood;
 use App\Models\Event;
-use App\Models\Food;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Validator; 
+use Illuminate\Support\Facades\Validator;
 
-class FoodController extends Controller
+class CustomizeFoodController extends Controller
 {
-    public function foodList()
+    public function customizeFoodList()
     {
-        $foods = Food::with('event')->get();
-        $foods = Food::paginate(4);
-        return view('backend.pages.food.foodList', compact('foods'));
+        $customizeFoods = CustomizeFood::with('event')->get();
+        $customizeFoods = CustomizeFood::paginate(4);
+        return view('backend.pages.customizeFood.customizeFoodList', compact('customizeFoods'));
     }
 
-    public function foodSearch(Request $request)
+    public function customizeFoodSearch(Request $request)
     {
-        $query = Food::query();
+        $query = CustomizeFood::query();
 
         if ($request->has('search')) {
             $search = $request->search;
@@ -31,16 +31,16 @@ class FoodController extends Controller
 
         $foods = $query->paginate(4);
 
-        return view('backend.pages.food.foodSearch', compact('foods'));
+        return view('backend.pages.customizeFood.customizeFoodSearch', compact('foods'));
     }
 
-    public function createFood()
+    public function createCustomizeFood()
     {
         $events = Event::all();
-        return view('backend.pages.food.createFood',compact('events'));
+        return view('backend.pages.customizeFood.createCustomizeFood',compact('events'));
     }
 
-    public function foodStore(Request $request)
+    public function customizeFoodStore(Request $request)
     {
         // $checkValidation=$request->except('_token');
         // dd($request->all());
@@ -61,28 +61,29 @@ class FoodController extends Controller
             return redirect()->back();
         }
 
-        Food::create([
+        CustomizeFood::create([
                 'name' => $request->name,
                 'event_id' => $request->event_id,
                 'price' => $request->price,
                 
             ]);
 
-        notify()->success('Food Created Successfully.');
+        notify()->success('Customize Food Created Successfully.');
 
-        return redirect()->route('admin.food.list');
+        return redirect()->route('admin.customize.food.list');
     }
 
-    public function foodEdit(Request $request, $food_id)
+    public function customizeFoodEdit(Request $request, $food_id)
     {
         $events= Event::all();
-        $foods = Food::find($food_id);
-        return view('backend.pages.food.foodEditForm', compact('foods','events'));
+        $foods = CustomizeFood::find($food_id);
+        return view('backend.pages.customizeFood.customizeFoodEditForm', compact('foods','events'));
+
     }
 
-    public function  foodUpdate(Request $request, $food_id)
+    public function  customizeFoodUpdate(Request $request, $food_id)
     {
-        $foods = Food::find($food_id);
+        $foods = CustomizeFood::find($food_id);
 
         $checkValidation = Validator::make
         (
@@ -105,18 +106,18 @@ class FoodController extends Controller
                 'event_id' => $request->event_id,
                 'price' => $request->price
             ]);
-        notify()->success('Food Updated Successfully.');
+        notify()->success('Customize Food Updated Successfully.');
 
-        return redirect()->route('admin.food.list');
+        return redirect()->route('admin.customize.food.list');
     }
 
-    public function foodDelete($food_id)
+    public function customizeFoodDelete($food_id)
     {
-        $foods = Food::find($food_id);
+        $foods = CustomizeFood::find($food_id);
         $foods->delete();
-        notify()->success('Food Deleted Successfully.');
+        notify()->success('Customize Food Deleted Successfully.');
         return redirect()->back();
         
     }
+      
 }
- 

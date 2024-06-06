@@ -90,16 +90,21 @@ class AppointmentController extends Controller
     }
 
     public function search(Request $request)
-    {
-        $searchResult = collect(); // Initialize an empty collection
+{
+    $searchResult = collect(); // Initialize an empty collection
     
-        if ($request->search) {
-            // Search in the Booking table by name
-            $appointments = Appointment::where('date', 'LIKE', '%' . $request->search . '%')->get();
-            $searchResult = $searchResult->merge($appointments);
-        }
-    
-        return view('backend.pages.appointment.search', compact('searchResult'));
+    if ($request->start_date && $request->end_date) {
+        // Search in the Appointment table by date range
+        $appointments = Appointment::whereBetween('date', [$request->start_date, $request->end_date])->get();
+        $searchResult = $searchResult->merge($appointments);
+    } elseif ($request->search) {
+        // Search in the Appointment table by specific date
+        $appointments = Appointment::where('date', 'LIKE', '%' . $request->search . '%')->get();
+        $searchResult = $searchResult->merge($appointments);
     }
+    
+    return view('backend.pages.appointment.search', compact('searchResult'));
+}
+
 }
  

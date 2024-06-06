@@ -54,13 +54,14 @@
 <br>
 <br>
 
-<form action="{{route('admin.search.booking')}}" method="get" class="search-form">
-  <div class="input-group mb-3">
-    <input type="text" id="searchInput" class="form-control" placeholder="Search..." name="search">
-    <div class="input-group-append">
-      <button style="color: black;" class="btn btn-outline-secondary" type="submit">Search</button>
+<form action="{{route('admin.search.booking')}}" method="get">
+    <div class="input-group mb-3">
+        <input type="date" id="start_date" class="form-control" placeholder="Start Date" name="start_date">
+        <input type="date" id="end_date" class="form-control" placeholder="End Date" name="end_date">
+        <div class="input-group-append">
+            <button style="color: black;" class="btn btn-outline-secondary" type="submit">Search</button>
+        </div>
     </div>
-  </div>
 </form>
 
 <div class="table-responsive">
@@ -105,9 +106,11 @@
         <td>{{$data->status}}</td>
         <td>{{$data->payment_status}}</td>
         <td class="action">
-          @if($data->status=='Pending')
-          <a href="{{route('admin.accept.booking', $data->id)}}" class="btn btn-success">Accept</a>
-          <a href="{{route('admin.reject.booking', $data->id)}}" class="btn btn-danger">Reject</a>
+          @if($data->status == 'Pending')
+            <a href="{{route('admin.accept.booking', $data->id)}}" class="btn btn-success">Accept</a>
+            <a href="{{route('admin.reject.booking', $data->id)}}" class="btn btn-danger">Reject</a>
+          @elseif($data->payment_status == 'Paid' && $data->status != 'Event Done')
+            <a href="{{route('admin.event.done', $data->id)}}" class="btn btn-success">Event Done</a>
           @endif
         </td>
       </tr>

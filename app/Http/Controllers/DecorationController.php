@@ -17,6 +17,23 @@ class DecorationController extends Controller
         return view('backend.pages.decoration.decorationList',compact('decorations'));
     }
 
+    public function decorationSearch(Request $request)
+    {
+        $query = Decoration::query();
+
+        if ($request->has('search')) {
+            $search = $request->search;
+            $query->where('name', 'LIKE', '%' . $search . '%')
+                  ->orWhere('price', 'LIKE', '%' . $search . '%')
+                  ->orWhereHas('event', function ($q) use ($search) {
+                      $q->where('name', 'LIKE', '%' . $search . '%');
+                  });
+        }
+
+        $decorations = $query->paginate(4);
+        return view('backend.pages.decoration.decorationSearch', compact('decorations'));
+    }
+
     public function createDecoration()
     {
         $events = Event::all();

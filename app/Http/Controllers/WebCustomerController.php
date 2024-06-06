@@ -107,6 +107,24 @@ class WebCustomerController extends Controller
       return view('backend.pages.customer.customerList', compact('customerDetails'));
    }
 
+   public function search(Request $request)
+{
+    $query = Customer::query();
+
+    if ($request->has('search')) {
+        $search = $request->input('search');
+        $query->where('name', 'LIKE', '%' . $search . '%')
+              ->orWhere('email', 'LIKE', '%' . $search . '%')
+              ->orWhere('phone', 'LIKE', '%' . $search . '%')
+              ->orWhere('address', 'LIKE', '%' . $search . '%');
+    }
+
+    $customerDetails = $query->paginate(4);
+
+    return view('backend.pages.customer.customerSearch', compact('customerDetails'));
+}
+
+
    public function deleteCustomer()
 
    {

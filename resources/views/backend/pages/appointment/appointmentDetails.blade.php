@@ -28,16 +28,17 @@
 <h1>Appointment Details</h1>
 <button id="print" onclick="printlist()" class="btn btn-info">Print</button>
 <br>
-<br>
-
-<form action="{{route('admin.search.appointment')}}" method="get">
+<form action="{{ route('admin.search.appointment') }}" method="get">
   <div class="input-group mb-3">
-    <input type="text" id="searchInput" class="form-control" placeholder="Search..." name="search">
+    <input type="text" id="searchInput" class="form-control" placeholder="Search by date..." name="search">
+    <input type="date" id="startDateInput" class="form-control" placeholder="Start Date" name="start_date">
+    <input type="date" id="endDateInput" class="form-control" placeholder="End Date" name="end_date">
     <div class="input-group-append">
-      <button style="color: black;" class="btn btn-outline-secondary" type="button">Search</button>
+      <button style="color: black;" class="btn btn-outline-secondary" type="submit">Search</button>
     </div>
   </div>
 </form>
+
 
 <table class="table">
   <thead>

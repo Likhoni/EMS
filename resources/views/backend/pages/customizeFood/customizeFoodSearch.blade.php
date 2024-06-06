@@ -2,9 +2,11 @@
 
 @section('content')
 
-<h1>Customers</h1>
-
-<form action="{{ route('admin.search.customer') }}" method="GET" class="mb-3">
+<h1>Customize Foods</h1>
+<br>
+<br>
+<!-- Search form -->
+<form action="{{ route('admin.customize.food.search') }}" method="GET" class="mb-3">
     <div class="input-group">
         <input type="text" name="search" class="form-control" placeholder="" value="{{ request()->search }}">
         <div class="input-group-append">
@@ -18,33 +20,26 @@
     <tr>
       <th scope="col">Id</th>
       <th scope="col">Name</th>
-      <th scope="col">Email</th>
-      <th scope="col">Phone</th>
-      <th scope="col">Address</th>
-      <th scope="col">Image</th>
-     
+      <th scope="col">Event</th>
+      <th scope="col">Price</th>
       <th>Action</th>
     </tr>
   </thead> 
   <tbody>
 
-@foreach($customerDetails as $key => $data)
- 
+@foreach($foods as $key => $data)
     <tr>
       <th scope="row">{{$key+1}}</th>
       <td>{{$data->name}}</td>
-      <td>{{$data->email}}</td>
-      <td>{{$data->phone}}</td>
-      <td>{{$data->address}}</td>
-      <td><img style="width: 100px;height:100px" src="{{ url('images/customers', $data->image) }}"
-      alt="" srcset=""></td>
+      <td>{{$data->event->name}}</td>
+      <td>BDT.{{$data->price}} /-per person</td>
       <td> 
-        <a class="btn btn-danger" href="{{route('admin.delete.customer')}}">Delete</a>
+        <a class="btn btn-info" href="{{route('admin.food.edit' , $data->id)}}">Edit</a>
+        <a class="btn btn-danger" href="{{route('admin.food.delete' , $data->id)}}">Delete</a>
       </td> 
     </tr>
 @endforeach    
   </tbody>
 </table>
-{{$customerDetails->links()}}
-
-@endsection    
+{{$foods->appends(request()->query())->links()}}
+@endsection
