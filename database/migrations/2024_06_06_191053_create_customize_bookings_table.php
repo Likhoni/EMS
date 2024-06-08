@@ -11,23 +11,23 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('booking', function (Blueprint $table) {
+        Schema::create('customize_bookings', function (Blueprint $table) {
             $table->id();
             $table->foreignId('customer_id')->constrained('customers')->onDelete('cascade');
-            $table->foreignId('package_id')->constrained('packages')->onDelete('cascade');
+            $table->foreignId('event_id')->constrained('events')->onDelete('cascade');
             $table->string('name');   
             $table->string('phone_number');   
             $table->string('email');
             $table->string('transaction_id');
             $table->date('date');
             $table->time('start_time');
-            $table->time('end_time'); 
+            $table->time('end_time');
             $table->string('venue');
             $table->integer('guest');
             $table->integer('total_amount');
             $table->string('status')->default('Pending');
             $table->string('payment_status')->default('Pending');
-            $table->timestamps();
+            $table->timestamps(); 
         });
     }
 
@@ -36,6 +36,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('booking');
+        Schema::dropIfExists('customize_bookings');
     }
 };

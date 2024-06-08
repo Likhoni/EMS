@@ -10,16 +10,16 @@
 				</div>
 			</div> 
 		</div>
-		<div class="row" style="padding-left: 300px; padding-right: 50px;">
+		<div class="row">
 			@foreach($eventShow as $data)
-			<div class="col-md-4 ">
+			<div class="col-md-3 ">
 				<div class="speaker-item">
 					<div class="image">
 						<img style="width: 300px;height:200px;" src="{{url('images/events/',$data->image)}}" alt="speaker" class="img-fluid">
 						<div class=""></div></div>
 					    <div class="content text-center">
 						<h5>{{$data->name}}</h5>
-                        <a href="" class="btn btn-success">Book Now</a>
+                        <a href="{{route('customize.booking.form',$data->id)}}" class="btn btn-success">Book Now</a>
 					</div>
 				</div>
 			</div>

@@ -9,6 +9,8 @@ use App\Http\Controllers\UserController;
 use App\Http\Controllers\WebCustomizeController;
 use App\Http\Controllers\CustomizeFoodController;
 use App\Http\Controllers\BookingController;
+use App\Http\Controllers\CustomizeBookingController;
+use App\Http\Controllers\WebCustomizeBookingController;
 use App\Http\Controllers\FoodController;
 use App\Http\Controllers\AppointmentController;
 use App\Http\Controllers\DecorationController;
@@ -103,6 +105,13 @@ use App\Http\Controllers\WebSampleWorkController;
             Route::get('/search/booking', [BookingController::class, 'search'])->name('admin.search.booking');
             Route::get('/event-done/{id}', [BookingController::class, 'markEventDone'])->name('admin.event.done');
 
+            //Customize Bookings-> 
+            Route::get('/customize/booking/list', [CustomizeBookingController::class, 'customizeBookingList'])->name('admin.customize.booking');
+            Route::get('/customize/booking/accept/{id}', [CustomizeBookingController::class, 'customizeAccept'])->name('admin.customize.accept.booking');
+            Route::get('/customize/booking/reject/{id}', [CustomizeBookingController::class, 'customizeReject'])->name('admin.customize.reject.booking');
+            Route::get('/customize/search/booking', [CustomizeBookingController::class, 'customizeSearch'])->name('admin.customize.search.booking');
+            Route::get('/customize/event-done/{id}', [CustomizeBookingController::class, 'customizeMarkEventDone'])->name('admin.customize.event.done');
+            
             //Appointments->
             Route::get('/appointment/details', [AppointmentController::class, 'appointmentDetails'])->name('admin.appointment.details');
             Route::get('/appointment/accept/{id}', [AppointmentController::class, 'accept'])->name('admin.accept.appointment');
@@ -136,9 +145,6 @@ use App\Http\Controllers\WebSampleWorkController;
       Route::get('/all/packages/{id}', [WebPackageController::class, 'allPackages'])->name('all.packages');
       Route::get('/all/packages/services/details/{id}', [WebPackageController::class, 'allPackagesDetails'])->name('all.packages.services.details');
 
-      //Customize->     
-      Route::get('/all/customize/events', [WebCustomizeController::class, 'allCustomizeEvents'])->name('all.customize.events');
-
       //Login-Logout-> 
       Route::get('/login', [WebCustomerController::class, 'login'])->name('login');
       Route::post('/do-login', [WebCustomerController::class, 'doLogin'])->name('do.login');
@@ -154,16 +160,27 @@ use App\Http\Controllers\WebSampleWorkController;
             Route::put('/update/profile', [WebProfileController::class, 'updateProfile'])->name('update.profile');
             Route::get('/delete/profile', [WebProfileController::class, 'deletetProfile'])->name('delete.profile');
             Route::get('/make-payment/{id}', [WebProfileController::class, 'makePayment'])->name('make.payment');
+            Route::get('/customize/make-payment/{id}', [WebProfileController::class, 'customizeMakePayment'])->name('customize.make.payment');
 
+            
             //Appointments-> 
             Route::get('/create/appointment', [AppointmentController::class, 'createAppointment'])->name('create.appointment');
             Route::post('/appointment/details/store', [AppointmentController::class, 'appointmentDetailsStore'])->name('appointment.details.store');
-
+            
+            //Customize->     
+            Route::get('/all/customize/events', [WebCustomizeController::class, 'allCustomizeEvents'])->name('all.customize.events');
+            
             //Booking->
             Route::get('/booking/form/{id}', [WebBookingController::class, 'bookingForm'])->name('booking.form');
             Route::post('/booking/store', [WebBookingController::class, 'bookingStore'])->name('booking.store');
             Route::get('/cancel/booking/{id}', [WebBookingController::class, 'cancelBooking'])->name('cancel.booking');
             Route::get('/download-receipt/{id}', [WebBookingController::class, 'downloadReceipt'])->name('download.receipt');
+
+            //Customize Booking->
+            Route::get('/customize/booking/form/{id}', [WebCustomizeBookingController::class, 'customizeBookingForm'])->name('customize.booking.form');
+            Route::post('/customize/booking/store', [WebCustomizeBookingController::class, 'customizeBookingStore'])->name('customize.booking.store');
+            Route::get('/cancel/customize/booking/{id}', [WebCustomizeBookingController::class, 'cancelCustomizeBooking'])->name('cancel.customize.booking');
+            Route::get('/customize/download-receipt/{id}', [WebCustomizeBookingController::class, 'customizeDownloadReceipt'])->name('customize.download.receipt');
 
             // SSLCOMMERZ Start->
             Route::post('/success', [SslCommerzPaymentController::class, 'success']);

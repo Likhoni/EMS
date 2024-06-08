@@ -60,7 +60,5 @@ class BookingController extends Controller
     
         return view('backend.pages.booking.search', compact('searchResult'));
     }
-
-    
-    
+   
 }

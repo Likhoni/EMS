@@ -6,6 +6,7 @@ use DB;
 use Illuminate\Http\Request;
 use App\Library\SslCommerz\SslCommerzNotification;
 use App\Models\Booking;
+use App\Models\CustomizeBooking;
 use Illuminate\Support\Facades\Log;
 
 
@@ -172,9 +173,10 @@ class SslCommerzPaymentController extends Controller
 
         #Check order status in order tabel against the transaction id or order id.
         $order_details = Booking::where('transaction_id', $tran_id)->first();
-        // dd($order_details);
+        $customize_order = CustomizeBooking::where('transaction_id', $tran_id)->first();
+        // dd($customize_order);
 
-        if ($order_details->payment_status == 'pending') {
+        if (($order_details && $order_details->payment_status == 'pending') || ($customize_order && $customize_order->payment_status == 'Pending')) {
             // dd('ami ekhane');
             $validation = $sslc->orderValidate($request->all(), $tran_id, $amount, $currency);
 
@@ -184,13 +186,17 @@ class SslCommerzPaymentController extends Controller
                 in order table as Processing or Complete.
                 Here you can also sent sms or email for successfull transaction to customer
                 */
-                $order_details->update([
-                    'payment_status' => 'Paid']);
+                if ($order_details) {
+                    $order_details->update(['payment_status' => 'Paid']);
+                }
+                if ($customize_order) {
+                    $customize_order->update(['payment_status' => 'Paid']);
+                }
 
-              notify()->success('Payment Successful');
-              return redirect()->route('view.profile');
+                notify()->success('Payment Successful');
+                return redirect()->route('view.profile');
             }
-        } else if ($order_details->status == 'Processing' || $order_details->status == 'Confirm') {
+        } else if (($order_details && ($order_details->status == 'Processing' || $order_details->status == 'Confirm')) || ($customize_order && ($customize_order->status == 'Processing' || $customize_order->status == 'Confirm'))) {
             /*
              That means through IPN Order status already updated. Now you can just show the customer that transaction is completed. No need to udate database.
              */

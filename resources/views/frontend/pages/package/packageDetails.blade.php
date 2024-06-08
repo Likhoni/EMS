@@ -17,8 +17,8 @@
 					<div class="speaker-item">
 						<div class="content text-left">
 							@foreach($packageDetails as $data)
-							<h6>Food: {{$data->food->name}}</h6>
-							<h6>Decoration: {{$data->decoration->name}}</h6>
+							<h6>Food: {{$data->food->name}}({{$data->food->price}} /-per person)</h6>
+							<h6>Decoration: {{$data->decoration->name}}({{$data->decoration->price}})</h6>
 							@endforeach
 						</div>
 						@foreach($packageDetails as $data)
