@@ -9,9 +9,9 @@ class CustomizeBookingController extends Controller
 {
     public function customizeBookinglist()
     {
-        $customizeBookingDetails = CustomizeBooking::with(['event', 'foods', 'decorations'])->where('customer_id', auth('customerGuard')->user()->id)->get();
+        $customizeBookingDetails = CustomizeBooking::with(['event', 'foods', 'decorations'])->get();
         // dd($customizeBookingDetails);
-        // $bookings=CustomizeBooking::paginate(4);
+        $customizeBookingDetails=CustomizeBooking::paginate(4);
 
         return view('backend.pages.customizeBooking.bookingDetails', compact('customizeBookingDetails'));
     }
@@ -56,5 +56,17 @@ class CustomizeBookingController extends Controller
     
         return view('backend.pages.customizeBooking.search', compact('searchResult'));
     }
+
+    public function customizeAutoUpdateStatus(Request $request, $id)
+{
+    $booking = CustomizeBooking::find($id);
+    if ($booking) {
+        $booking->status = $request->status;
+        $booking->save();
+        return response()->json(['success' => true]);
+    }
+    return response()->json(['success' => false], 404);
+}
+
 
 } 

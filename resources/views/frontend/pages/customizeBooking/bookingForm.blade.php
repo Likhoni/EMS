@@ -11,7 +11,7 @@
                         <label for="" style="color: black; font-size:30px;"><strong>Food</strong></label>
                         @foreach($foods as $data)
                         <div class="form-check">
-                            <input class="form-check-input food-checkbox" type="checkbox" name="food_id[]" value="{{ $data->id }}" data-price="{{ $data->price }}">
+                            <input class="form-check-input food-checkbox" type="checkbox" name="food_id[]" value="{{ $data->id }}" data-price="{{ $data->price }}" required>
                             <label class="form-check-label" for="food" style="color: black; font-size:20px;">
                                 {{ $data->name }} ({{ $data->price }} /-per person)
                             </label>
@@ -22,7 +22,7 @@
                         <label for="" style="color: black; font-size:30px;"><strong>Decoration</strong></label>
                         @foreach($decorations as $data)
                         <div class="form-check">
-                            <input class="form-check-input decoration-checkbox" type="checkbox" name="decoration_id[]" value="{{ $data->id }}" data-price="{{ $data->price }}">
+                            <input class="form-check-input decoration-checkbox" type="checkbox" name="decoration_id[]" value="{{ $data->id }}" data-price="{{ $data->price }}" required>
                             <label class="form-check-label" for="decoration" style="color: black; font-size:20px;">
                                 {{ $data->name }} ({{ $data->price }})
                             </label>
@@ -133,14 +133,10 @@
             document.getElementById('end_time').setAttribute('min', startTime);
         });
 
-        // Get today's date
         const today = new Date();
-        // Add one day to today's date to get tomorrow's date
         const tomorrow = new Date(today);
-        tomorrow.setDate(today.getDate() + 1);
-        // Format tomorrow's date in YYYY-MM-DD format
+        tomorrow.setDate(today.getDate() + 5);
         const minDate = tomorrow.toISOString().split('T')[0];
-        // Set the min attribute to tomorrow's date
         document.getElementById('datePicker').setAttribute('min', minDate);
 </script>
 @endsection

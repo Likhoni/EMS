@@ -1,7 +1,7 @@
 @extends('backend.master')
 @section('content')
 
-<h1>Edit Event Type</h1>
+<h1>Edit Event</h1>
   
 <form action="{{route('admin.event.update', $events->id)}}" method="post" enctype="multipart/form-data">                             
 @method('put')

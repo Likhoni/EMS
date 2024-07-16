@@ -4,7 +4,6 @@
 
 <h1>Customize Decoration</h1>
 <br>
-<br>
 <!-- Search form -->
 <form action="{{ route('admin.customize.decoration.search') }}" method="GET" class="mb-3">
     <div class="input-group">
@@ -14,7 +13,11 @@
         </div>
     </div>
 </form>
+<h3>Search result :
+    found {{ $decorations->count() }}
+</h3>
 
+@if($decorations->count() > 0)
 <table class="table">
   <thead>
     <tr>
@@ -27,7 +30,7 @@
   </thead> 
   <tbody>
 
-@foreach($foods as $key => $data)
+@foreach($decorations as $key => $data)
     <tr>
       <th scope="row">{{$key+1}}</th>
       <td>{{$data->name}}</td>
@@ -41,5 +44,8 @@
 @endforeach    
   </tbody>
 </table>
-{{$foods->appends(request()->query())->links()}}
+@else
+<p>No result found.</p>
+@endif
+{{$decorations->appends(request()->query())->links()}}
 @endsection

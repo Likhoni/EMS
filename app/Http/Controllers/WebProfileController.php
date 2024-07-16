@@ -16,13 +16,34 @@ class WebProfileController extends Controller
 {
     public function viewProfile()
     {
+        $profileData = Customer::find(auth('customerGuard')->user()->id);
+        return view('frontend.pages.userProfile.profileView', compact('profileData'));
+    }
+
+    public function bookingDetails()
+    {
         $bookingDetails = Booking::with('package.event')->where('customer_id', auth('customerGuard')->user()->id)->get();
         // dd($bookingDetails);
-        $appointments = Appointment::where('customer_id',auth('customerGuard')->user()->id)->get();
-        // dd($appointments);
+        $bookingDetails = Booking::paginate(20); 
+        return view('frontend.pages.userProfile.bookingDetails', compact('bookingDetails'));
+
+    }
+
+    public function customizeBookingDetails()
+    {
         $customizeBookingDetails = CustomizeBooking::with(['event', 'foods', 'decorations'])->where('customer_id', auth('customerGuard')->user()->id)->get();
-        $profileData = Customer::find(auth('customerGuard')->user()->id);
-        return view('frontend.pages.userProfile.profileView', compact('profileData', 'bookingDetails', 'appointments', 'customizeBookingDetails'));
+        $customizeBookingDetails = CustomizeBooking::paginate(20);
+        return view('frontend.pages.userProfile.customizeBookingDetails', compact('customizeBookingDetails'));
+
+    }
+
+    public function appointmentDetails()
+    {
+        $appointmentDetails = Appointment::where('customer_id',auth('customerGuard')->user()->id)->get();
+        // dd($appointments);
+        $appointmentDetails = Appointment::paginate(20); 
+        return view('frontend.pages.userProfile.appointmentDetails', compact('appointmentDetails'));
+
     }
 
     public function editProfile()
@@ -212,4 +233,6 @@ class WebProfileController extends Controller
         notify()->success('Profile Deleted Successfully');
         return redirect()->back();
     }
+
+
 }

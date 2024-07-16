@@ -55,8 +55,8 @@ class WebBookingController extends Controller
             'payment_status' => 'pending',
         ]);
 
-        notify()->success('Booked Package Successfully.'); 
-        return redirect()->route('view.profile');
+        notify()->success('Booked Package Successfully.Please Pay Within 2 Days.'); 
+        return redirect()->route('booking.details');
     }
 
     public function cancelBooking($id)

@@ -11,7 +11,7 @@ use Illuminate\Support\Facades\Validator;
 class EventController extends Controller
 {
     public function eventList()
-    {
+    { 
         $events = Event::paginate(4);
         // dd($events);
         return view('backend.pages.events.eventList', compact('events'));

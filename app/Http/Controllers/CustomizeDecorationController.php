@@ -12,7 +12,7 @@ class CustomizeDecorationController extends Controller
     public function customizeDecorationList()
     {
         $customizeDecorations = CustomizeDecoration::with('event')->get();
-        // $customizeDecorations = CustomizeDecoration::paginate(4);
+        $customizeDecorations = CustomizeDecoration::paginate(4);
         return view('backend.pages.customizeDecoration.customizeDecorationList', compact('customizeDecorations'));             
     }
 

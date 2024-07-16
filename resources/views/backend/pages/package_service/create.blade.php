@@ -1,7 +1,7 @@
 @extends('backend.master')
 @section('content')
 
-<h1>Create Service</h1>
+<h1>Create Package Services</h1>
 <form action="{{route('admin.package.service.store')}}" method="post" enctype="multipart/form-data">
   @csrf
 
@@ -26,7 +26,7 @@
   <div class="form-check">
     <input class="form-check-input" type="checkbox" name="food_id[]" value="{{ $data->id }}">
     <label class="form-check-label" for="food">
-      {{ $data->name }} 
+      {{ $data->name }} (BDT.{{$data->price}}-/per person)
     </label>
   </div>
   @endforeach
@@ -38,7 +38,7 @@
   <div class="form-check">
     <input class="form-check-input" type="checkbox" name="decoration_id[]" value="{{ $data->id }}">
     <label class="form-check-label" for="decoration">
-      {{ $data->name }} 
+      {{ $data->name }} (BDT.{{$data->price}})
     </label>
   </div>
   @endforeach

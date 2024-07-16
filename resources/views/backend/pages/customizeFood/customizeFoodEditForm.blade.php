@@ -1,7 +1,7 @@
 @extends('backend.master')
 @section('content')
 
-<h1>Edit Customize Food Type</h1>
+<h1>Edit Customize Food Item</h1>
   
 <form action="{{route('admin.customize.food.update', $foods->id)}}" method="post" enctype="multipart/form-data">                             
 @method('put')

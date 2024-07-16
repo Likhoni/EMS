@@ -10,7 +10,6 @@
 						<div class="col-md-6" style=" padding:0px;border-radius:15px; ">
 							<div style="margin-top:80px;" class="title text-left">
 								<h3 style="color: black;"><strong>Register to </strong> <span class="alternate"><strong>Eventre</strong></span></h3>
-
 							</div>
 							<form action="{{route('do-registration')}}" method="post" class="row" enctype="multipart/form-data">
 								@csrf

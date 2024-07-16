@@ -13,7 +13,11 @@
         </div>
     </div>
 </form>
+<h3>Search result :
+    found {{ $customerDetails->count() }}
+</h3>
 
+@if($customerDetails ->count() > 0)
 <table class="table">
   <thead>
     <tr>
@@ -43,6 +47,9 @@
 @endforeach    
   </tbody>
 </table>
+@else
+<p>No result found.</p>
+@endif
 {{$customerDetails->appends(request()->query())->links()}}
 
 @endsection    

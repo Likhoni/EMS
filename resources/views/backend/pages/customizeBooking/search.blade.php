@@ -21,7 +21,6 @@
             display: none !important;
         }
 
-
         .table-responsive {
             overflow: visible !important;
         }
@@ -29,37 +28,33 @@
         .table {
             width: 100%;
             table-layout: fixed;
-            font-size: smaller;
-            /* Smaller font size for printing */
+            font-size: smaller; /* Smaller font size for printing */
         }
 
-        th,
-        td {
-            white-space: nowrap;
-            /* Ensure no cell content breaks into new lines */
+        th, td {
+            white-space: nowrap; /* Ensure no cell content breaks into new lines */
         }
+    }
 
+    /* Ensure table doesn't overflow */
+    .table-responsive {
+        overflow-x: auto;
+    }
 
-        /* Ensure table doesn't overflow */
-        .table-responsive {
-            overflow-x: auto;
-        }
-
-        .table {
-            width: 100%;
-            table-layout: auto;
-        }
+    .table {
+        width: 100%;
+        table-layout: auto;
     }
 </style>
 
 @section('content')
 
-<h1>Booking Details</h1>
+<h1>Customize Booking Details</h1>
 <button id="print" onclick="printlist()" class="btn btn-info">Print</button>
 <br>
 <br>
 
-<form action="{{route('admin.search.booking')}}" method="get">
+<form action="{{route('admin.customize.search.booking')}}" method="get">
     <div class="input-group mb-3">
         <input type="date" id="start_date" class="form-control" placeholder="Start Date" name="start_date">
         <input type="date" id="end_date" class="form-control" placeholder="End Date" name="end_date">
@@ -81,10 +76,11 @@
     <table class="table table-bordered">
         <thead>
             <tr>
-                <th>Id</th>
+                <th>ID</th>
                 <th>User</th>
                 <th>Event</th>
-                <th>Package</th>
+                <th>Foods</th>
+                <th>Decorations</th>
                 <th>Phone</th>
                 <th>Email</th>
                 <th>Venue</th>
@@ -101,27 +97,38 @@
         </thead>
 
         <tbody>
-            @foreach($searchResult as $data)
+            @foreach($searchResult as $key => $booking)
             <tr>
-                <th scope="row">{{$data->id}}</th>
-                <td>{{$data->name}}</td>
-                <td>{{$data->package->event->name}}</td>
-                <td>{{$data->package->name}}</td>
-                <td>{{$data->phone_number}}</td>
-                <td>{{$data->email}}</td>
-                <td>{{$data->venue}}</td>
-                <td>{{$data->guest}}</td>
-                <td>{{$data->transaction_id}}</td>
-                <td>{{$data->date}}</td>
-                <td>{{$data->start_time}}</td>
-                <td>{{$data->end_time}}</td>
-                <td>{{$data->total_amount}}</td>
-                <td>{{$data->status}}</td>
-                <td>{{$data->payment_status}}</td>
+                <th scope="row">{{ $key + 1 }}</th>
+                <td>{{ $booking->name }}</td>
+                <td>{{ $booking->event->name ?? 'N/A' }}</td>
+                <td>
+                    @foreach($booking->foods as $food)
+                    {{ $food->name }},
+                    @endforeach
+                </td>
+                <td>
+                    @foreach($booking->decorations as $decoration)
+                    {{ $decoration->name }},
+                    @endforeach
+                </td>
+                <td>{{ $booking->phone_number }}</td>
+                <td>{{ $booking->email }}</td>
+                <td>{{ $booking->venue }}</td>
+                <td>{{ $booking->guest }}</td>
+                <td>{{ $booking->transaction_id }}</td>
+                <td class="date">{{ \Carbon\Carbon::parse($booking->date)->format('m/d/Y') }}</td>
+                <td>{{ $booking->start_time }}</td>
+                <td>{{ $booking->end_time }}</td>
+                <td>{{ $booking->total_amount }}</td>
+                <td class="status" data-id="{{ $booking->id }}">{{ $booking->status }}</td>
+                <td>{{ $booking->payment_status }}</td>
                 <td class="action">
-                    @if($data->status == 'Pending')
-                    <a href="{{route('admin.accept.booking', $data->id)}}" class="btn btn-success">Accept</a>
-                    <a href="{{route('admin.reject.booking', $data->id)}}" class="btn btn-danger">Reject</a>
+                    @if($booking->status == 'Pending')
+                    <a href="{{ route('admin.customize.accept.booking', $booking->id) }}" class="btn btn-success">Accept</a>
+                    <a href="{{ route('admin.customize.reject.booking', $booking->id) }}" class="btn btn-danger">Reject</a>
+                    @elseif($booking->payment_status == 'Paid' && $booking->status != 'Event Done')
+                    <a href="{{ route('admin.customize.event.done', $booking->id) }}" class="btn btn-success event-done" data-id="{{ $booking->id }}">Event Done</a>
                     @endif
                 </td>
             </tr>
@@ -134,6 +141,14 @@
 @endif
 
 <script>
+    document.addEventListener('DOMContentLoaded', function() {
+        document.querySelectorAll('.date').forEach(cell => {
+            const date = new Date(cell.innerText);
+            const formattedDate = ('0' + (date.getMonth() + 1)).slice(-2) + '/' + ('0' + date.getDate()).slice(-2) + '/' + date.getFullYear();
+            cell.innerText = formattedDate;
+        });
+    });
+
     function printlist() {
         window.print();
     }

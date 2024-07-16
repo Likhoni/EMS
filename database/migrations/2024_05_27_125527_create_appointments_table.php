@@ -19,7 +19,7 @@ return new class extends Migration
             $table->string('email');
             $table->date('date');
             $table->time('time');
-            $table->string('status')->default('Pending');
+            $table->string('status')->default('');
             $table->timestamps();
         });
     }

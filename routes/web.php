@@ -22,6 +22,7 @@ use App\Http\Controllers\WebProfileController;
 use App\Http\Controllers\WebCustomerController;
 use App\Http\Controllers\WebPackageController;
 use App\Http\Controllers\WebSampleWorkController;
+use App\Models\Appointment;
 
 //Backend
 
@@ -36,7 +37,7 @@ use App\Http\Controllers\WebSampleWorkController;
 
             Route::get('/', [HomeController::class, 'homePage'])->name('admin.home.page');
 
-            //  Events->
+            //Events->
             Route::get('/event/list', [EventController::class, 'eventList'])->name('admin.event.list');
             Route::get('/create/event', [EventController::class, 'createEvent'])->name('admin.create.event');
             Route::post('/event/store', [EventController::class, 'eventStore'])->name('admin.event.store');
@@ -54,7 +55,7 @@ use App\Http\Controllers\WebSampleWorkController;
             Route::get('/package/delete/{package_id}', [PackageController::class, 'packageDelete'])->name('admin.package.delete');
             Route::get('/packages/search', [PackageController::class, 'packageSearch'])->name('admin.package.search');
 
-            //  Foods->
+            //Foods->
             Route::get('/food/list', [FoodController::class, 'foodList'])->name('admin.food.list');
             Route::get('/create/food', [FoodController::class, 'createFood'])->name('admin.create.food');
             Route::post('/food/store', [FoodController::class, 'foodStore'])->name('admin.food.store');
@@ -62,17 +63,8 @@ use App\Http\Controllers\WebSampleWorkController;
             Route::put('/food/update/{food_id}', [FoodController::class, 'foodUpdate'])->name('admin.food.update');
             Route::get('/food/delete/{food_id}', [FoodController::class, 'foodDelete'])->name('admin.food.delete');
             Route::get('/food/search', [FoodController::class, 'foodSearch'])->name('admin.food.search');
-
-            // Customize/ Foods->
-            Route::get('/customize/food/list', [CustomizeFoodController::class, 'customizeFoodList'])->name('admin.customize.food.list');
-            Route::get('/customize/create/food', [CustomizeFoodController::class, 'createCustomizeFood'])->name('admin.create.customize.food');
-            Route::post('/customize/food/store', [CustomizeFoodController::class, 'customizeFoodStore'])->name('admin.customize.food.store');
-            Route::get('/customize/food/edit/{food_id}', [CustomizeFoodController::class, 'customizeFoodEdit'])->name('admin.customize.food.edit');
-            Route::put('/customize/food/update/{food_id}', [CustomizeFoodController::class, 'customizeFoodUpdate'])->name('admin.customize.food.update');
-            Route::get('/customize/food/delete/{food_id}', [CustomizeFoodController::class, 'customizeFoodDelete'])->name('admin.customize.food.delete');
-            Route::get('/customize/food/search', [CustomizeFoodController::class, 'customizeFoodSearch'])->name('admin.customize.food.search');
-
-            //  Decorations->
+           
+            //Decorations->
             Route::get('/decoration/list', [DecorationController::class, 'decorationList'])->name('admin.decoration.list');
             Route::get('/create/decoration', [DecorationController::class, 'createDecoration'])->name('admin.create.decoration');
             Route::post('/decoration/store', [DecorationController::class, 'decorationStore'])->name('admin.decoration.store');
@@ -80,15 +72,6 @@ use App\Http\Controllers\WebSampleWorkController;
             Route::put('/decoration/update/{decoration_id}', [DecorationController::class, 'decorationUpdate'])->name('admin.decoration.update');
             Route::get('/decoration/delete/{decoration_id}', [DecorationController::class, 'decorationDelete'])->name('admin.decoration.delete');
             Route::get('/decorations/search', [DecorationController::class, 'decorationSearch'])->name('admin.decoration.search');
-
-            // Customize Decorations->
-            Route::get('/customize/decoration/list', [CustomizeDecorationController::class, 'customizeDecorationList'])->name('admin.customize.decoration.list');
-            Route::get('/customize/create/decoration', [CustomizeDecorationController::class, 'createCustomizeDecoration'])->name('admin.create.customize.decoration');
-            Route::post('/customize/decoration/store', [CustomizeDecorationController::class, 'customizeDecorationStore'])->name('admin.customize.decoration.store');
-            Route::get('/customize/decoration/edit/{decoration_id}', [CustomizeDecorationController::class, 'customizeDecorationEdit'])->name('admin.customize.decoration.edit');
-            Route::put('/customize/decoration/update/{decoration_id}', [CustomizeDecorationController::class, 'customizeDecorationUpdate'])->name('admin.customize.decoration.update');
-            Route::get('/customize/decoration/delete/{decoration_id}', [CustomizeDecorationController::class, 'customizeDecorationDelete'])->name('admin.customize.decoration.delete');
-            Route::get('/customize/decoration/search', [CustomizeDecorationController::class, 'customizeDecorationSearch'])->name('admin.customize.decoration.search');
             
             //Packages service->       
             Route::get('/package/service/list', [PackageServiceController::class, 'packageServiceList'])->name('admin.package.service.list');
@@ -97,21 +80,41 @@ use App\Http\Controllers\WebSampleWorkController;
             Route::post('/package/service/store', [PackageServiceController::class, 'packageServiceStore'])->name('admin.package.service.store');
             Route::get('/package/service/delete/{p_s_id}', [PackageServiceController::class, 'packageServiceDelete'])->name('admin.package.service.delete');
             Route::get('/package/service/search', [PackageServiceController::class, 'packageServiceSearch'])->name('admin.package.service.search');
-
+            
             //Bookings-> 
             Route::get('/booking/list', [BookingController::class, 'bookingList'])->name('admin.booking');
             Route::get('/booking/accept/{id}', [BookingController::class, 'accept'])->name('admin.accept.booking');
             Route::get('/booking/reject/{id}', [BookingController::class, 'reject'])->name('admin.reject.booking');
             Route::get('/search/booking', [BookingController::class, 'search'])->name('admin.search.booking');
             Route::get('/event-done/{id}', [BookingController::class, 'markEventDone'])->name('admin.event.done');
-
+            Route::post('/booking/auto-update-status/{id}', [BookingController::class, 'autoUpdateStatus']);
+            
+            //Customize Foods->
+            Route::get('/customize/food/list', [CustomizeFoodController::class, 'customizeFoodList'])->name('admin.customize.food.list');
+            Route::get('/customize/create/food', [CustomizeFoodController::class, 'createCustomizeFood'])->name('admin.create.customize.food');
+            Route::post('/customize/food/store', [CustomizeFoodController::class, 'customizeFoodStore'])->name('admin.customize.food.store');
+            Route::get('/customize/food/edit/{food_id}', [CustomizeFoodController::class, 'customizeFoodEdit'])->name('admin.customize.food.edit');
+            Route::put('/customize/food/update/{food_id}', [CustomizeFoodController::class, 'customizeFoodUpdate'])->name('admin.customize.food.update');
+            Route::get('/customize/food/delete/{food_id}', [CustomizeFoodController::class, 'customizeFoodDelete'])->name('admin.customize.food.delete');
+            Route::get('/customize/food/search', [CustomizeFoodController::class, 'customizeFoodSearch'])->name('admin.customize.food.search');
+            
+            //Customize Decorations->
+            Route::get('/customize/decoration/list', [CustomizeDecorationController::class, 'customizeDecorationList'])->name('admin.customize.decoration.list');
+            Route::get('/customize/create/decoration', [CustomizeDecorationController::class, 'createCustomizeDecoration'])->name('admin.create.customize.decoration');
+            Route::post('/customize/decoration/store', [CustomizeDecorationController::class, 'customizeDecorationStore'])->name('admin.customize.decoration.store');
+            Route::get('/customize/decoration/edit/{decoration_id}', [CustomizeDecorationController::class, 'customizeDecorationEdit'])->name('admin.customize.decoration.edit');
+            Route::put('/customize/decoration/update/{decoration_id}', [CustomizeDecorationController::class, 'customizeDecorationUpdate'])->name('admin.customize.decoration.update');
+            Route::get('/customize/decoration/delete/{decoration_id}', [CustomizeDecorationController::class, 'customizeDecorationDelete'])->name('admin.customize.decoration.delete');
+            Route::get('/customize/decoration/search', [CustomizeDecorationController::class, 'customizeDecorationSearch'])->name('admin.customize.decoration.search');
+            
             //Customize Bookings-> 
             Route::get('/customize/booking/list', [CustomizeBookingController::class, 'customizeBookingList'])->name('admin.customize.booking');
             Route::get('/customize/booking/accept/{id}', [CustomizeBookingController::class, 'customizeAccept'])->name('admin.customize.accept.booking');
             Route::get('/customize/booking/reject/{id}', [CustomizeBookingController::class, 'customizeReject'])->name('admin.customize.reject.booking');
             Route::get('/customize/search/booking', [CustomizeBookingController::class, 'customizeSearch'])->name('admin.customize.search.booking');
             Route::get('/customize/event-done/{id}', [CustomizeBookingController::class, 'customizeMarkEventDone'])->name('admin.customize.event.done');
-            
+            Route::post('/customize/booking/auto-update-status/{id}', [CustomizeBookingController::class, 'customizeAutoUpdateStatus']);
+
             //Appointments->
             Route::get('/appointment/details', [AppointmentController::class, 'appointmentDetails'])->name('admin.appointment.details');
             Route::get('/appointment/accept/{id}', [AppointmentController::class, 'accept'])->name('admin.accept.appointment');
@@ -161,12 +164,15 @@ use App\Http\Controllers\WebSampleWorkController;
             Route::get('/delete/profile', [WebProfileController::class, 'deletetProfile'])->name('delete.profile');
             Route::get('/make-payment/{id}', [WebProfileController::class, 'makePayment'])->name('make.payment');
             Route::get('/customize/make-payment/{id}', [WebProfileController::class, 'customizeMakePayment'])->name('customize.make.payment');
+            Route::get('/booking/details', [WebProfileController::class, 'bookingDetails'])->name('booking.details');
+            Route::get('/customize/booking/details', [WebProfileController::class, 'customizeBookingDetails'])->name('customize.booking.details');
+            Route::get('/appointment/details', [WebProfileController::class, 'appointmentDetails'])->name('appointment.details');
 
-            
             //Appointments-> 
             Route::get('/create/appointment', [AppointmentController::class, 'createAppointment'])->name('create.appointment');
             Route::post('/appointment/details/store', [AppointmentController::class, 'appointmentDetailsStore'])->name('appointment.details.store');
-            
+            Route::get('/cancel/appointment/{id}', [AppointmentController::class, 'cancelAppointment'])->name('cancel.appointment');
+
             //Customize->     
             Route::get('/all/customize/events', [WebCustomizeController::class, 'allCustomizeEvents'])->name('all.customize.events');
             
@@ -189,5 +195,4 @@ use App\Http\Controllers\WebSampleWorkController;
             Route::post('/ipn', [SslCommerzPaymentController::class, 'ipn']);
             //SSLCOMMERZ END
     });
-
 //End Frontend      

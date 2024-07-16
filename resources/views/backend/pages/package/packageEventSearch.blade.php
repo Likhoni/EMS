@@ -13,7 +13,11 @@
         </div>
     </div>
 </form>
+<h3>Search result :
+    found {{ $packages->count() }}
+</h3>
 
+@if($packages->count() > 0)
 <table class="table">
   <thead>
     <tr>
@@ -40,5 +44,8 @@
     @endforeach
   </tbody>
 </table>
+@else
+<p>No result found.</p>
+@endif
 {{$packages->appends(request()->query())->links()}}
 @endsection

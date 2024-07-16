@@ -1,7 +1,7 @@
 @extends('backend.master')
 @section('content')
 
-<h1>Edit Customize Decoration Type</h1>
+<h1>Edit Customize Decoration Item</h1>
   
 <form action="{{route('admin.customize.decoration.update', $decorations->id)}}" method="post" enctype="multipart/form-data">                             
 @method('put')

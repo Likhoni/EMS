@@ -34,11 +34,13 @@ class WebCustomizeBookingController extends Controller
             'end_time' => 'required',
             'venue' => 'required',
             'guest' => 'required|integer|min:1',
-            'total_amount' => 'required',
+            'total_amount' => 'required', 
         ]);
 
         if ($checkValidation->fails()) {
-            return redirect()->back()->withErrors($checkValidation)->withInput();
+            notify()->error("Something Went Wrong.");
+            // notify()->error($checkValidation->getMessageBag());
+            return redirect()->back();
         }
 
         $booking = CustomizeBooking::create([
@@ -61,8 +63,8 @@ class WebCustomizeBookingController extends Controller
         $booking->foods()->attach($request->food_id);
         $booking->decorations()->attach($request->decoration_id);
 
-        notify()->success('Booking Successful.');
-        return redirect()->route('view.profile');
+        notify()->success('Booked Successfully.Please Pay Within 2 Days.'); 
+        return redirect()->route('customize.booking.details');
     }
 
     public function cancelCustomizeBooking($id)

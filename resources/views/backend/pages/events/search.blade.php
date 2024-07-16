@@ -13,6 +13,11 @@
         </div>
     </div>
 </form>
+<h3>Search result :
+    found {{ $events->count() }}
+</h3>
+
+@if($events->count() > 0)
 
 <table class="table">
   <thead>
@@ -38,6 +43,9 @@
 @endforeach    
   </tbody>
 </table>
+@else
+<p>No result found.</p>
+@endif
 {{$events->appends(request()->query())}}
 
 @endsection  

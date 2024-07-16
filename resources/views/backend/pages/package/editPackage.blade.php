@@ -1,7 +1,7 @@
 @extends('backend.master')
 @section('content')
 
-<h1>Edit Packages</h1>
+<h1>Edit Package</h1>
 
 
 <form action="{{route('admin.package.update',$package->id)}}" method="post" enctype="multipart/form-data">

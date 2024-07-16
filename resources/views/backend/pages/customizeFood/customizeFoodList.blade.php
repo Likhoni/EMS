@@ -28,7 +28,7 @@
 </thead>
 <tbody>
 
-@foreach($customizeFoods as $key => $data)
+@foreach($customizeFoods as $key => $data) 
 
 <tr>
   <th scope="row">{{$key+1}}</th>
@@ -44,4 +44,5 @@
 @endforeach
 </tbody>
 </table>
+{{$customizeFoods->links()}}
 @endsection

@@ -76,14 +76,14 @@
             document.getElementById('end_time').setAttribute('min', startTime);
         });
 
-        // Get today's date
+       
         const today = new Date();
-        // Add one day to today's date to get tomorrow's date
+       
         const tomorrow = new Date(today);
-        tomorrow.setDate(today.getDate() + 1);
-        // Format tomorrow's date in YYYY-MM-DD format
+        tomorrow.setDate(today.getDate() + 5);
+        
         const minDate = tomorrow.toISOString().split('T')[0];
-        // Set the min attribute to tomorrow's date
+        
         document.getElementById('datePicker').setAttribute('min', minDate);
     </script>
 </div>

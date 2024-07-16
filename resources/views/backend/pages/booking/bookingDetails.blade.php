@@ -1,52 +1,4 @@
 @extends('backend.master')
-<style>
-  @media print {
-    #print, .search-form {
-      display: none;
-    }
-
-    footer {
-      display: none !important;
-    }
-
-    .sidebar {
-      display: none !important;
-    }
-
-    .navbar {
-      display: none !important;
-    }
-
-    .action {
-      display: none !important;
-    }
-
-    .table-responsive {
-      overflow: visible !important;
-    }
-
-    .table {
-      width: 100%;
-      table-layout: fixed;
-      font-size: smaller; /* Smaller font size for printing */
-    }
-
-    th, td {
-      white-space: nowrap; /* Ensure no cell content breaks into new lines */
-    }
-  }
-
-  /* Ensure table doesn't overflow */
-  .table-responsive {
-    overflow-x: auto;
-  }
-
-  .table {
-    width: 100%;
-    table-layout: auto;
-  }
-</style>
-
 @section('content')
 
 <h1>Booking Details</h1>
@@ -77,7 +29,7 @@
         <th>Venue</th>
         <th>Guest</th>
         <th>Transaction Id</th>
-        <th>Date</th>
+        <th>Date(mm/dd/yy)</th>
         <th>Start Time</th>
         <th>End Time</th>
         <th>Total Amount</th>
@@ -99,18 +51,24 @@
         <td>{{$data->venue}}</td>
         <td>{{$data->guest}}</td>
         <td>{{$data->transaction_id}}</td>
-        <td>{{$data->date}}</td>
+        <td class="date">{{$data->date}}</td>
         <td>{{$data->start_time}}</td>
         <td>{{$data->end_time}}</td>
         <td>{{$data->total_amount}}</td>
-        <td>{{$data->status}}</td>
-        <td>{{$data->payment_status}}</td>
+        <td class="status" data-id="{{$data->id}}" data-created-at="{{$data->created_at}}">{{$data->status}}</td>
+        <td>
+          @if($data->status == 'Accept' && $data->created_at->diffInDays(now()) > 2 && $data->payment_status !== 'Paid')
+            Not Paid & Booking Rejected
+          @elseif($data->status == 'Accept')
+            {{$data->payment_status}}
+          @endif
+        </td>
         <td class="action">
           @if($data->status == 'Pending')
             <a href="{{route('admin.accept.booking', $data->id)}}" class="btn btn-success">Accept</a>
             <a href="{{route('admin.reject.booking', $data->id)}}" class="btn btn-danger">Reject</a>
           @elseif($data->payment_status == 'Paid' && $data->status != 'Event Done')
-            <a href="{{route('admin.event.done', $data->id)}}" class="btn btn-success">Event Done</a>
+            <a href="{{route('admin.event.done', $data->id)}}" class="btn btn-success event-done" data-id="{{$data->id}}">Event Done</a>
           @endif
         </td>
       </tr>
@@ -122,6 +80,14 @@
 {{$bookings->links()}}
 
 <script>
+  document.addEventListener('DOMContentLoaded', function () {
+    document.querySelectorAll('.date').forEach(cell => {
+      const date = new Date(cell.innerText);
+      const formattedDate = ('0' + (date.getMonth() + 1)).slice(-2) + '/' + ('0' + date.getDate()).slice(-2) + '/' + date.getFullYear();
+      cell.innerText = formattedDate;
+    });
+  });
+
   function printlist() {
     window.print();
   }

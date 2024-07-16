@@ -1,7 +1,7 @@
 @extends('backend.master')
 @section('content')
 
-<h1>Create Packages</h1>
+<h1>Create Package</h1>
 
 
 <form action="{{route('admin.package.store')}}" method="post" enctype="multipart/form-data">

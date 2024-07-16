@@ -14,7 +14,11 @@
         </div>
     </div>
 </form>
+<h3>Search result :
+    found {{ $foods->count() }}
+</h3>
 
+@if($foods->count() > 0)
 <table class="table">
   <thead>
     <tr>
@@ -41,5 +45,8 @@
 @endforeach    
   </tbody>
 </table>
+@else
+<p>No result found.</p>
+@endif
 {{$foods->appends(request()->query())->links()}}
 @endsection

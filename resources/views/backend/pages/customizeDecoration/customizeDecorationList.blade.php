@@ -44,4 +44,5 @@
 @endforeach
 </tbody>
 </table>
+{{$customizeDecorations->links()}}
 @endsection

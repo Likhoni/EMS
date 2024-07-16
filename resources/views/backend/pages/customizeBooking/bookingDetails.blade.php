@@ -59,7 +59,7 @@
 <br>
 <br>
 
-<form action="{{route('admin.search.booking')}}" method="get">
+<form action="{{route('admin.customize.search.booking')}}" method="get">
   <div class="input-group mb-3">
     <input type="date" id="start_date" class="form-control" placeholder="Start Date" name="start_date">
     <input type="date" id="end_date" class="form-control" placeholder="End Date" name="end_date">
@@ -83,7 +83,7 @@
         <th>Venue</th>
         <th>Guest</th>
         <th>Transaction Id</th>
-        <th>Date</th>
+        <th>Date(mm/dd/yy)</th>
         <th>Start Time</th>
         <th>End Time</th>
         <th>Total Amount</th>
@@ -95,38 +95,43 @@
 
     <tbody>
       @foreach($customizeBookingDetails as $key => $booking)
-
       <tr>
         <th scope="row">{{ $key + 1 }}</th>
-        <td>{{ $booking->name}}</td>
+        <td>{{ $booking->name }}</td>
         <td>{{ $booking->event->name ?? 'N/A' }}</td>
         <td>
           @foreach($booking->foods as $food)
-          {{ $food->name }},<br>
+          {{ $food->name }},
           @endforeach
         </td>
         <td>
           @foreach($booking->decorations as $decoration)
-          {{ $decoration->name }},<br>
+          {{ $decoration->name }},
           @endforeach
         </td>
-        <td>{{ $booking->phone_number}}</td>
-        <td>{{ $booking->email}}</td>
-        <td>{{ $booking->venue}}</td>
-        <td>{{ $booking->guest}}</td>
+        <td>{{ $booking->phone_number }}</td>
+        <td>{{ $booking->email }}</td>
+        <td>{{ $booking->venue }}</td>
+        <td>{{ $booking->guest }}</td>
         <td>{{ $booking->transaction_id }}</td>
-        <td>{{ $booking->date }}</td>
+        <td class="date">{{ $booking->date }}</td>
         <td>{{ $booking->start_time }}</td>
         <td>{{ $booking->end_time }}</td>
         <td>{{ $booking->total_amount }}</td>
-        <td>{{ $booking->status}}</td>
-        <td>{{ $booking->payment_status }}</td>
+        <td class="status" data-id="{{ $booking->id }}">{{ $booking->status }}</td>
         <td>
-        @if($booking->status == 'Pending')
-            <a href="{{route('admin.customize.accept.booking', $booking->id)}}" class="btn btn-success">Accept</a>
-            <a href="{{route('admin.customize.reject.booking', $booking->id)}}" class="btn btn-danger">Reject</a>
+          @if($booking->status == 'Accept' && $booking->created_at->diffInDays(now()) > 2 && $booking->payment_status !== 'Paid')
+          Not Paid & Booking Rejected
+          @elseif($booking->status == 'Accept')
+          {{$booking->payment_status}}
+          @endif
+        </td>
+        <td class="action">
+          @if($booking->status == 'Pending')
+          <a href="{{route('admin.customize.accept.booking', $booking->id)}}" class="btn btn-success">Accept</a>
+          <a href="{{route('admin.customize.reject.booking', $booking->id)}}" class="btn btn-danger">Reject</a>
           @elseif($booking->payment_status == 'Paid' && $booking->status != 'Event Done')
-            <a href="{{route('admin.customize.event.done', $booking->id)}}" class="btn btn-success">Event Done</a>
+          <a href="{{route('admin.customize.event.done', $booking->id)}}" class="btn btn-success event-done" data-id="{{ $booking->id }}">Event Done</a>
           @endif
         </td>
       </tr>
@@ -134,7 +139,16 @@
     </tbody>
   </table>
 </div>
+{{$customizeBookingDetails->links()}}
 <script>
+  document.addEventListener('DOMContentLoaded', function() {
+    document.querySelectorAll('.date').forEach(cell => {
+      const date = new Date(cell.innerText);
+      const formattedDate = ('0' + (date.getMonth() + 1)).slice(-2) + '/' + ('0' + date.getDate()).slice(-2) + '/' + date.getFullYear();
+      cell.innerText = formattedDate;
+    });
+  });
+
   function printlist() {
     window.print();
   }

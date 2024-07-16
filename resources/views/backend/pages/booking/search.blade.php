@@ -1,26 +1,13 @@
 @extends('backend.master')
 <style>
     @media print {
-        #print {
+        #print, .search-form {
             display: none;
         }
 
-        footer {
+        footer, .sidebar, .navbar, .action {
             display: none !important;
         }
-
-        .sidebar {
-            display: none !important;
-        }
-
-        .navbar {
-            display: none !important;
-        }
-
-        .action {
-            display: none !important;
-        }
-
 
         .table-responsive {
             overflow: visible !important;
@@ -29,26 +16,22 @@
         .table {
             width: 100%;
             table-layout: fixed;
-            font-size: smaller;
-            /* Smaller font size for printing */
+            font-size: smaller; /* Smaller font size for printing */
         }
 
-        th,
-        td {
-            white-space: nowrap;
-            /* Ensure no cell content breaks into new lines */
+        th, td {
+            white-space: nowrap; /* Ensure no cell content breaks into new lines */
         }
+    }
 
+    /* Ensure table doesn't overflow */
+    .table-responsive {
+        overflow-x: auto;
+    }
 
-        /* Ensure table doesn't overflow */
-        .table-responsive {
-            overflow-x: auto;
-        }
-
-        .table {
-            width: 100%;
-            table-layout: auto;
-        }
+    .table {
+        width: 100%;
+        table-layout: auto;
     }
 </style>
 
@@ -59,7 +42,7 @@
 <br>
 <br>
 
-<form action="{{route('admin.search.booking')}}" method="get">
+<form action="{{ route('admin.search.booking') }}" method="get">
     <div class="input-group mb-3">
         <input type="date" id="start_date" class="form-control" placeholder="Start Date" name="start_date">
         <input type="date" id="end_date" class="form-control" placeholder="End Date" name="end_date">
@@ -103,25 +86,25 @@
         <tbody>
             @foreach($searchResult as $data)
             <tr>
-                <th scope="row">{{$data->id}}</th>
-                <td>{{$data->name}}</td>
-                <td>{{$data->package->event->name}}</td>
-                <td>{{$data->package->name}}</td>
-                <td>{{$data->phone_number}}</td>
-                <td>{{$data->email}}</td>
-                <td>{{$data->venue}}</td>
-                <td>{{$data->guest}}</td>
-                <td>{{$data->transaction_id}}</td>
-                <td>{{$data->date}}</td>
-                <td>{{$data->start_time}}</td>
-                <td>{{$data->end_time}}</td>
-                <td>{{$data->total_amount}}</td>
-                <td>{{$data->status}}</td>
-                <td>{{$data->payment_status}}</td>
+                <th scope="row">{{ $data->id }}</th>
+                <td>{{ $data->name }}</td>
+                <td>{{ $data->package->event->name }}</td>
+                <td>{{ $data->package->name }}</td>
+                <td>{{ $data->phone_number }}</td>
+                <td>{{ $data->email }}</td>
+                <td>{{ $data->venue }}</td>
+                <td>{{ $data->guest }}</td>
+                <td>{{ $data->transaction_id }}</td>
+                <td class="date">{{ $data->date }}</td>
+                <td>{{ $data->start_time }}</td>
+                <td>{{ $data->end_time }}</td>
+                <td>{{ $data->total_amount }}</td>
+                <td>{{ $data->status }}</td>
+                <td>{{ $data->payment_status }}</td>
                 <td class="action">
                     @if($data->status == 'Pending')
-                    <a href="{{route('admin.accept.booking', $data->id)}}" class="btn btn-success">Accept</a>
-                    <a href="{{route('admin.reject.booking', $data->id)}}" class="btn btn-danger">Reject</a>
+                    <a href="{{ route('admin.accept.booking', $data->id) }}" class="btn btn-success">Accept</a>
+                    <a href="{{ route('admin.reject.booking', $data->id) }}" class="btn btn-danger">Reject</a>
                     @endif
                 </td>
             </tr>
@@ -134,6 +117,14 @@
 @endif
 
 <script>
+    document.addEventListener('DOMContentLoaded', function () {
+        document.querySelectorAll('.date').forEach(cell => {
+            const date = new Date(cell.innerText);
+            const formattedDate = ('0' + (date.getMonth() + 1)).slice(-2) + '/' + ('0' + date.getDate()).slice(-2) + '/' + date.getFullYear();
+            cell.innerText = formattedDate;
+        });
+    });
+
     function printlist() {
         window.print();
     }

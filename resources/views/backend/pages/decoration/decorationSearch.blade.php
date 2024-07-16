@@ -4,7 +4,6 @@
 
 <h1>Decorations</h1>
 <br>
-<br>
 <!-- Search form -->
 <form action="{{ route('admin.decoration.search') }}" method="GET" class="mb-3">
     <div class="input-group">
@@ -14,8 +13,11 @@
         </div>
     </div>
 </form>
+<h3>Search result :
+    found {{ $decorations->count() }}
+</h3>
 
-
+@if($decorations->count() > 0)
 <table class="table">
   <thead>
     <tr>
@@ -42,5 +44,8 @@
 @endforeach    
   </tbody>
 </table>
+@else
+<p>No result found.</p>
+@endif
 {{$decorations->appends(request()->query())->links()}}
 @endsection

@@ -10,9 +10,9 @@ use Illuminate\Support\Facades\Validator;
 class CustomizeFoodController extends Controller
 {
     public function customizeFoodList()
-    {
+    { 
         $customizeFoods = CustomizeFood::with('event')->get();
-        // $customizeFoods = CustomizeFood::paginate(4);
+        $customizeFoods = CustomizeFood::paginate(4);
         return view('backend.pages.customizeFood.customizeFoodList', compact('customizeFoods'));
     }
 
