@@ -26,11 +26,15 @@
     </tr>
   </thead>
   <tbody>
-
+    @php
+    $currentPage = $packages->currentPage();
+    $perPage = $packages->perPage();
+    $startId = ($currentPage - 1) * $perPage + 1;
+    @endphp
     @foreach($packages as $key => $data)
 
     <tr>
-      <th scope="row">{{$key+1}}</th>
+      <th scope="row">{{ $startId + $key }}</th>
       <td>{{$data->name}}</td>
       <td>{{$data->event->name}}</td>
       <!-- <td><img style="width: 100px;height:100px" src="{{ url('images/events', $data->image) }}"

@@ -52,9 +52,14 @@
     </tr>
   </thead>
   <tbody>
-  @foreach($appointments as $key => $data)
+    @php
+    $currentPage = $appointments->currentPage();
+    $perPage = $appointments->perPage();
+    $startId = ($currentPage - 1) * $perPage + 1;
+    @endphp
+    @foreach($appointments as $key => $data)
     <tr>
-      <th scope="row">{{$key+1}}</th>
+      <th scope="row">{{$startId + $key}}</th>
       <td>{{$data->user_name}}</td>
       <td>{{$data->phone_number}}</td>
       <td>{{$data->email}}</td>
@@ -62,7 +67,7 @@
       <td>{{$data->time}}</td>
       <td>{{$data->status}}</td>
     </tr>
-  @endforeach
+    @endforeach
   </tbody>
 </table>
 {{$appointments->links()}}

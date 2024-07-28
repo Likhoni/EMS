@@ -27,11 +27,15 @@
     </tr>
   </thead> 
   <tbody>
-
+  @php
+  $currentPage = $customerDetails->currentPage();
+  $perPage = $customerDetails->perPage();
+  $startId = ($currentPage - 1) * $perPage + 1;
+  @endphp
 @foreach($customerDetails as $key => $data)
  
     <tr>
-      <th scope="row">{{$key+1}}</th>
+      <th scope="row">{{$startId + $key}}</th>
       <td>{{$data->name}}</td>
       <td>{{$data->email}}</td>
       <td>{{$data->phone}}</td>

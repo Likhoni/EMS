@@ -57,16 +57,17 @@
         </div>
     </section>
     <script>
-        document.addEventListener('DOMContentLoaded', function() {
+               document.addEventListener('DOMContentLoaded', function() {
+            // Get all food prices
             const foodPrices = Array.from(document.querySelectorAll('.food-price')).map(input => parseFloat(input.value));
-            const decorationPrices = Array.from(document.querySelectorAll('.decoration-price')).map(input => parseFloat(input.value));
-
             const totalFoodPrice = foodPrices.reduce((sum, price) => sum + price, 0);
-            const totalDecorationPrice = decorationPrices.reduce((sum, price) => sum + price, 0);
+
+            // Get the decoration price (assuming only one decoration item)
+            const decorationPrice = parseFloat(document.querySelector('.decoration-price').value) || 0;
 
             document.getElementById('guest').addEventListener('input', function() {
-                const guestCount = parseInt(this.value);
-                const totalAmount = (guestCount * totalFoodPrice) + totalDecorationPrice;
+                const guestCount = parseInt(this.value) || 0; // Ensure it's a number or 0 if not valid
+                const totalAmount = (guestCount * totalFoodPrice) + decorationPrice;
                 document.getElementById('total_amount').value = totalAmount.toFixed(2);
             });
         });

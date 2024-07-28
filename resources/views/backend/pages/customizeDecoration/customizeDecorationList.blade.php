@@ -27,11 +27,16 @@
     </tr>
 </thead>
 <tbody>
+  
+@php 
+$currentPage = $customizeDecorations->currentPage();
+$perPage = $customizeDecorations->perPage();
+$startId = ($currentPage - 1) * $perPage +1;
+@endphp
 
 @foreach($customizeDecorations as $key => $data)
-
 <tr>
-  <th scope="row">{{$key+1}}</th>
+  <th scope="row">{{$startId + $key}}</th>
   <td>{{$data->name}}</td>
   <td>{{$data->event->name}}</td>
   <td>BDT.{{$data->price}}</td>

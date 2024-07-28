@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Controllers\Controller;
 use App\Models\Event;
 use App\Models\Service;
-use App\Models\Package;
+use App\Models\Package; 
 use App\Models\PackageService;
 use Illuminate\Http\Request;
 

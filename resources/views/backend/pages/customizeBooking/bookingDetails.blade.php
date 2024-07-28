@@ -94,9 +94,15 @@
     </thead>
 
     <tbody>
+      @php
+      $currentPage = $customizeBookingDetails->currentPage();
+      $perPage = $customizeBookingDetails->perPage();
+      $startId = ($currentPage - 1) * $perPage + 1;
+      @endphp
+      
       @foreach($customizeBookingDetails as $key => $booking)
       <tr>
-        <th scope="row">{{ $key + 1 }}</th>
+        <th scope="row">{{ $startId + $key }}</th>
         <td>{{ $booking->name }}</td>
         <td>{{ $booking->event->name ?? 'N/A' }}</td>
         <td>

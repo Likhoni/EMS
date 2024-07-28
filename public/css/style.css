@@ -242,7 +242,7 @@ button:hover {
 }
 
 .bg-speaker1 {
-  background: url(../images/1.avif) fixed no-repeat;
+  background: rgb(66, 66, 66);
   background-size: cover;
   background-position: center center;
 }
@@ -3285,6 +3285,8 @@ ul.pagination .active a {
 		#container {
 			background-color: #dcdcdc;
 		}
+
+    
 
 
 

@@ -7,13 +7,13 @@
 <br>
 
 <form action="{{route('admin.search.booking')}}" method="get">
-    <div class="input-group mb-3">
-        <input type="date" id="start_date" class="form-control" placeholder="Start Date" name="start_date">
-        <input type="date" id="end_date" class="form-control" placeholder="End Date" name="end_date">
-        <div class="input-group-append">
-            <button style="color: black;" class="btn btn-outline-secondary" type="submit">Search</button>
-        </div>
+  <div class="input-group mb-3">
+    <input type="date" id="start_date" class="form-control" placeholder="Start Date" name="start_date">
+    <input type="date" id="end_date" class="form-control" placeholder="End Date" name="end_date">
+    <div class="input-group-append">
+      <button style="color: black;" class="btn btn-outline-secondary" type="submit">Search</button>
     </div>
+  </div>
 </form>
 
 <div class="table-responsive">
@@ -40,9 +40,14 @@
     </thead>
 
     <tbody>
+      @php
+      $currentPage = $bookings->currentPage();
+      $perPage = $bookings->perPage();
+      $startId = ($currentPage - 1) * $perPage + 1;
+      @endphp
       @foreach($bookings as $key => $data)
       <tr>
-        <th scope="row">{{$key+1}}</th>
+        <th scope="row">{{$startId + $key}}</th>
         <td>{{$data->name}}</td>
         <td>{{$data->package->event->name}}</td>
         <td>{{$data->package->name}}</td>
@@ -58,17 +63,17 @@
         <td class="status" data-id="{{$data->id}}" data-created-at="{{$data->created_at}}">{{$data->status}}</td>
         <td>
           @if($data->status == 'Accept' && $data->created_at->diffInDays(now()) > 2 && $data->payment_status !== 'Paid')
-            Not Paid & Booking Rejected
+          Not Paid & Booking Rejected
           @elseif($data->status == 'Accept')
-            {{$data->payment_status}}
+          {{$data->payment_status}}
           @endif
         </td>
         <td class="action">
           @if($data->status == 'Pending')
-            <a href="{{route('admin.accept.booking', $data->id)}}" class="btn btn-success">Accept</a>
-            <a href="{{route('admin.reject.booking', $data->id)}}" class="btn btn-danger">Reject</a>
+          <a href="{{route('admin.accept.booking', $data->id)}}" class="btn btn-success">Accept</a>
+          <a href="{{route('admin.reject.booking', $data->id)}}" class="btn btn-danger">Reject</a>
           @elseif($data->payment_status == 'Paid' && $data->status != 'Event Done')
-            <a href="{{route('admin.event.done', $data->id)}}" class="btn btn-success event-done" data-id="{{$data->id}}">Event Done</a>
+          <a href="{{route('admin.event.done', $data->id)}}" class="btn btn-success event-done" data-id="{{$data->id}}">Event Done</a>
           @endif
         </td>
       </tr>
@@ -80,7 +85,7 @@
 {{$bookings->links()}}
 
 <script>
-  document.addEventListener('DOMContentLoaded', function () {
+  document.addEventListener('DOMContentLoaded', function() {
     document.querySelectorAll('.date').forEach(cell => {
       const date = new Date(cell.innerText);
       const formattedDate = ('0' + (date.getMonth() + 1)).slice(-2) + '/' + ('0' + date.getDate()).slice(-2) + '/' + date.getFullYear();

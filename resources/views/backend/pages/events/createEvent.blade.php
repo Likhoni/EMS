@@ -10,9 +10,7 @@
     <label for="">Event Name</label>
     <input required name="event_name" type="text" class="form-control" id="" placeholder="Enter Event name">
   </div>
-
-
-  
+ 
  <br>
   <div class="form-group">
     <label for="">Upload Image</label>
